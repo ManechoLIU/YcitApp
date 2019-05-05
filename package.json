@@ -28,7 +28,9 @@
     "react-native-wechat": "git+https://gitee.com/putixie/react-native-wechat.git",
     "react-navigation": "^3.5.1",
     "react-redux": "^6.0.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "react-native-easy-grid": "0.2.1",
+    "react-native-vector-icons": "6.4.2"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
