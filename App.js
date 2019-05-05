@@ -11,6 +11,7 @@ import CourseList from './src/screens/Course/CourseList'
 import NewsList from './src/screens/News/NewsList'
 import Account from './src/screens/Account/Account'
 import CourseMessage from './src/screens/Course/CourseMessage'
+import AddNote from './src/screens/Course/AddNote/AddNote'
 const CreateTab = createMaterialTopTabNavigator({
   CourseList: {
     screen: CourseList,
@@ -81,44 +82,45 @@ const Root = Platform.OS === 'android' ? {
     }
   }
 const StacksOverTabs = createStackNavigator({
-  CourseMessage: {
-    screen: CourseMessage,
+  Root: Root,
+  CourseList: {
+    screen: CourseList,
     navigationOptions: {
       header: null
-    },
+    }
   },
-  Root: Root,
+
   GradeList: {
     screen: GradeList,
     navigationOptions: {
       header: null
     },
   },
-  CourseList: {
-    screen: CourseList,
+
+  NewsList: {
+    screen: NewsList,
     navigationOptions: {
       header: null
     },
-    NewsList: {
-      screen: NewsList,
-      navigationOptions: {
-        header: null
-      },
-    },
+  },
 
-    Account: {
-      screen: Account,
-      navigationOptions: {
-        header: null
-      },
+  Account: {
+    screen: Account,
+    navigationOptions: {
+      header: null
     },
-    CourseMessage: {
-      screen: CourseMessage,
-      navigationOptions: {
-        header: null
-      },
+  },
+  CourseMessage: {
+    screen: CourseMessage,
+    navigationOptions: {
+      header: null
     },
-
+  },
+  AddNote: {
+    screen: AddNote,
+    navigationOptions: {
+      header: null
+    },
   }
 })
 const StacksOverTab = createAppContainer(StacksOverTabs)

@@ -20,7 +20,7 @@ export default class CourseMessage extends Component {
         super(props);
         this.state = {
             data: [],
-            item:'',
+            item: '',
         };
     }
     render() {
@@ -85,7 +85,7 @@ export default class CourseMessage extends Component {
                 <TouchableOpacity style={styles.btn}
                     onPress={() => {
                         this._fetchAddData(this.props.navigation.state.params.item.fclassName);
-                        
+
                     }}>
                     <Text style={styles.btnText}>加入该班级群聊</Text>
                 </TouchableOpacity>
@@ -105,7 +105,7 @@ export default class CourseMessage extends Component {
                     }
                 }
                 if (isLeap) {
-                    url = 'http://localhost:8081/json/qunnews.json&fName=' + title+'&newstype=qun';
+                    url = 'http://localhost:8081/json/qunnews.json&fName=' + title + '&newstype=qun';
                     Util.get(url, function (data) {
                         if (data.status) {
                             var obj = data.info;
@@ -119,7 +119,8 @@ export default class CourseMessage extends Component {
                             self.setState({
                                 obj: obj,
                             });
-                            self.props.navigation.navigate('QunChat', { item: self.state.item
+                            self.props.navigation.navigate('QunChat', {
+                                item: self.state.item
                             })
                         } else {
                             alert('服务异常,正在紧急修复,请耐心等待1');
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 12,
-        width:40,
+        width: 40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -234,7 +235,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         marginRight: 5,
-        borderRadius:50
+        borderRadius: 50
     },
     commentIcon: {
         justifyContent: 'flex-end',
