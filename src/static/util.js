@@ -220,6 +220,19 @@ function xmlToJson(xmlStr) {
 
   return json;
 }
+ function get(url, successCallback, failCallback){
+   console.log("enter get!!!")
+  fetch(url)
+    .then((response) => response.text())
+    .then((responseText) => {
+      console.log(responseText)
+      successCallback(JSON.parse(responseText));
+
+    })
+    .catch(function(err){
+      failCallback(err);
+    });
+}
 
 export default {
   width,
@@ -234,6 +247,7 @@ export default {
   confirmAlert,
   toastShort,
   toastLong,
-  xmlToJson
+  xmlToJson,
+  get
 
 }

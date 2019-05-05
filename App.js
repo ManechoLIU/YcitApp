@@ -10,6 +10,7 @@ import GradeList from './src/screens/Grade/GradeList'
 import CourseList from './src/screens/Course/CourseList'
 import NewsList from './src/screens/News/NewsList'
 import Account from './src/screens/Account/Account'
+import CourseMessage from './src/screens/Course/CourseMessage'
 const CreateTab = createMaterialTopTabNavigator({
   CourseList: {
     screen: CourseList,
@@ -80,6 +81,12 @@ const Root = Platform.OS === 'android' ? {
     }
   }
 const StacksOverTabs = createStackNavigator({
+  CourseMessage: {
+    screen: CourseMessage,
+    navigationOptions: {
+      header: null
+    },
+  },
   Root: Root,
   GradeList: {
     screen: GradeList,
@@ -101,6 +108,12 @@ const StacksOverTabs = createStackNavigator({
 
     Account: {
       screen: Account,
+      navigationOptions: {
+        header: null
+      },
+    },
+    CourseMessage: {
+      screen: CourseMessage,
       navigationOptions: {
         header: null
       },

@@ -3,7 +3,7 @@ import {
     AppRegistry,
     StyleSheet,
     TouchableOpacity,
-    ActivityIndicator,
+    // ActivityIndicator,
     Text,
     Platform,
     ListView,
@@ -11,7 +11,7 @@ import {
     Modal,
     Image,
     View,
-    PixelRatio,
+    // PixelRatio,
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,8 +19,8 @@ import Grids from './Grid';
 const { width, height } = Dimensions.get('window');
 const navigatorH = 64; // navigator height
 const [aWidth, aHeight] = [width - 28, 214];
-const [left, top] = [0, 0];
-const [middleLeft, middleTop] = [(width - aWidth) / 2, (height - aHeight) / 2 - navigatorH];
+// const [left, top] = [0, 0];
+// const [middleLeft, middleTop] = [(width - aWidth) / 2, (height - aHeight) / 2 - navigatorH];
 
 export default class CourseList extends Component {
     constructor(props) {
@@ -46,7 +46,7 @@ export default class CourseList extends Component {
         };
     }
     render() {
-        
+
         let icon = this.icons['down']
         if (this.state.expanded) {
             icon = this.icons['up']; //Step 4 
@@ -82,11 +82,11 @@ export default class CourseList extends Component {
                     Fri={this.state.Fri}
                     Sat={this.state.Sat}
                     Sun={this.state.Sun}
-                     
+
                     {...this.props} />
-                    {/*MyID={this.state.MyID}*/}
+                {/*MyID={this.state.MyID}*/}
                 <TouchableOpacity style={styles.noteBtn}
-                    onPress={() => { this.props.navigation.navigate('AddNote',{Title:''}) }}>
+                    onPress={() => { this.props.navigation.navigate('AddNote', { Title: '' }) }}>
                     <Image style={styles.noteImg} source={require('../../assets/note.png')} />
                 </TouchableOpacity>
                 <Modal
@@ -114,23 +114,23 @@ export default class CourseList extends Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                        {/* <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
+                        <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
                             <View style={styles.shareAllWrap} >
                                 <View style={styles.shareWrap}>
                                     <TouchableOpacity style={styles.shareBtn} onPress={this._setModalVisibleJump.bind(this, 'SchoolImport')}>
-                                        <Image style={styles.shareImg} source={require('../../img/daoru.png')} />
+                                        <Image style={styles.shareImg} source={require('../../assets/daoru.png')} />
                                     </TouchableOpacity>
                                     <Text style={styles.shareText}>教务导入</Text>
                                 </View>
                                 <View style={styles.shareWrap}>
                                     <TouchableOpacity style={styles.shareBtn} onPress={this._setModalVisibleJump.bind(this, 'DIYClass')}>
-                                        <Image style={styles.shareImg} source={require('../../img/zidingyi.png')} />
+                                        <Image style={styles.shareImg} source={require('../../assets/zidingyi.png')} />
                                     </TouchableOpacity>
                                     <Text style={styles.shareText}>自定义</Text>
                                 </View>
                                 <View style={styles.shareWrap}>
                                     <TouchableOpacity style={styles.shareBtn} onPress={this._setModalVisibleJump.bind(this, 'CengClass')}>
-                                        <Image style={styles.shareImg} source={require('../../img/cengke.png')} />
+                                        <Image style={styles.shareImg} source={require('../../assets/cengke.png')} />
                                     </TouchableOpacity>
                                     <Text style={styles.shareText}>校内蹭课</Text>
                                 </View>
@@ -149,14 +149,16 @@ export default class CourseList extends Component {
                                     <Text style={styles.rowContent}>12节</Text>
                                 </View>
                             </View>
-                        </View> */}
+                        </View>
                     </View>
                 </Modal>
             </View>
         );
     }
     _setModalVisible = (visible) => {
-        this.setState({ modalVisible: visible });
+        this.setState({
+            modalVisible: visible
+        });
     }
 
     _setModalVisibleJump = (component) => {
@@ -192,18 +194,20 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     header: {
-        marginTop: Platform.OS === 'ios' ? 20 : 0,
+        marginTop: Platform.Android === 'andorid' ? 20 : 0,
         paddingTop: 12,
         paddingBottom: 12,
         height: 48,
-        backgroundColor: '#00b3ca',
+        backgroundColor: '#FF0042',
         flexDirection: 'row',
         paddingLeft: 10,
+        marginLeft:2,
+        marginRight:2
     },
     headerImg: {
-		width: 24,
-		height: 18,
-		marginTop:5,
+        width: 24,
+        height: 18,
+        marginTop: 5,
     },
     headerText: {
         fontSize: 20,

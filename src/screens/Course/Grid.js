@@ -8,7 +8,7 @@ import {
     Text,
     View
 } from 'react-native';
-import Util from '../../static/utils';
+import Util from '../../static/util';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Dimensions from 'Dimensions';
 const { width, height } = Dimensions.get('window');
@@ -70,8 +70,9 @@ export default class Grids extends Component {
             <View style={[styles.center,
             { borderRadius: 10, backgroundColor: colors[num], width: width * 2 / 15, height: heights, marginTop: marginTop, }
             ]}>
-                <TouchableOpacity onPress={() => { this.props.navigation.navigate('ClassMessage', { item: item }) }}>
-                    <Text style={styles.color}>{item.fclassName}@{item.fPlace}</Text>
+                <TouchableOpacity onPress={() => { this.props.navigation.navigate('CourseMessage', { item: item }) }}>
+                    <Text style={styles.color}>{item.fclassName}</Text>
+                    <Text style={styles.color}>@{item.fPlace}</Text>
                 </TouchableOpacity >
             </View>
         );
@@ -83,7 +84,7 @@ export default class Grids extends Component {
                 <View style={{ height: 30 }}>
                     <Grid>
                         <Row>
-                            <Col style={styles.center} size={1}><Text style={{ fontSize: 12 }}>九月</Text></Col>
+                            <Col style={styles.center} size={1}><Text style={{ fontSize: 10 }}>九月</Text></Col>
                             <Col style={styles.center} size={2}><Text>周一</Text></Col>
                             <Col style={styles.center} size={2}><Text>周二</Text></Col>
                             <Col style={styles.center} size={2}><Text>周三</Text></Col>
@@ -98,18 +99,18 @@ export default class Grids extends Component {
                     <View style={{ height: 780, marginBottom: 85, }}>
                         <Grid>
                             <Col size={1}>
-                                <Row style={styles.center} size={1}><Text>1</Text></Row>
-                                <Row style={styles.center} size={1}><Text>2</Text></Row>
-                                <Row style={styles.center} size={1}><Text>3</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>4</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>5</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>6</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>7</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>8</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>9</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>10</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>11</Text></Row>
-                                <Row style={styles.center} size={1} ><Text>12</Text></Row>
+                                <Row style={styles.class} size={1}><Text>1</Text></Row>
+                                <Row style={styles.class} size={1}><Text>2</Text></Row>
+                                <Row style={styles.class} size={1}><Text>3</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>4</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>5</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>6</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>7</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>8</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>9</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>10</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>11</Text></Row>
+                                <Row style={styles.class} size={1} ><Text>12</Text></Row>
                             </Col>
                             <Col size={2}>
                                 {
@@ -216,7 +217,7 @@ export default class Grids extends Component {
                             </Col>
                             <Col size={2}>
                                 {
-                                    this.props.Sun == ''? <FlatList
+                                    this.props.Sun == '' ? <FlatList
                                         data={this.state.Sun}
                                         //使用 ref 可以获取到相应的组件
                                         ref={(flatList) => this._flatList = flatList}
@@ -245,9 +246,11 @@ export default class Grids extends Component {
     }
     _fetchData() {
         var self = this;
-        Util.get('http://tree.luoyelusheng.cn/data/read?type=classData', function (data) {
-            if (data.status) {
-                let obj = data.data;
+        Util.get('http://localhost:8081/json/classData.json', function (data) {
+            console.log("fetchData!!!")
+            console.log(data)
+            if (data) {
+                let obj = data;
 
                 let Mon = [];
                 let Tus = [];
@@ -273,7 +276,7 @@ export default class Grids extends Component {
                         Sun.push(obj[x]);
                     }
                 }
-                
+
                 if (Mon.length > 1) {
                     for (var y = 0; y < Mon.length - 1; y++) {
                         for (var z = 1; z < Mon.length; z++) {
@@ -365,7 +368,7 @@ export default class Grids extends Component {
                         }
                     }
                 }
-                
+
 
                 self.setState({
                     obj: obj,
@@ -397,14 +400,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
+    class:{
+        justifyContent: 'center',
+        alignItems: 'center',
+       fontSize:10
+    },
     center: {
         justifyContent: 'center',
         alignItems: 'center',
         paddingLeft: 5,
         paddingRight: 5,
+        marginLeft:2
     },
-    color: {
+    color:{
         color: '#fff',
         fontSize: 12,
-    },
-});
+        lineHeight:15
+    }
+})
