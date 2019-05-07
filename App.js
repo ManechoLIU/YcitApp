@@ -36,7 +36,7 @@ const CreateTab = createMaterialTopTabNavigator({
   NewsList: {
     screen: NewsList,
     navigationOptions: {
-      tabBarLabel: '咨讯',
+      tabBarLabel: '新闻',
       tabBarIcon: ({ tintColor, focused }) => (
         focused ? <Image style={styles.icon} source={require('./src/assets/application_after.png')} /> :
           <Image style={styles.icon} source={require('./src/assets/application.png')} />
