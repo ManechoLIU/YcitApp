@@ -12,6 +12,7 @@ import NewsList from './src/screens/News/NewsList'
 import Account from './src/screens/Account/Account'
 import CourseMessage from './src/screens/Course/CourseMessage'
 import AddNote from './src/screens/Course/AddNote/AddNote'
+import NewsContent from './src/screens/News/NewsContent'
 const CreateTab = createMaterialTopTabNavigator({
   CourseList: {
     screen: CourseList,
@@ -99,6 +100,29 @@ const StacksOverTabs = createStackNavigator({
 
   NewsList: {
     screen: NewsList,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: '新闻',
+      headerStyle: {
+        //标题栏样式
+        backgroundColor: '#FF0042',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+      },
+      headerLeft:
+        <TouchableOpacity onPress={() => {
+          navigation.goBack()
+        }}>
+          <Image style={{ marginLeft: 20, width: 9, height: 18 }} source={require('./src/assets/grzy-icon.png')} />
+        </TouchableOpacity>
+
+    })
+  },
+  NewsContent: {
+    screen: NewsContent,
     navigationOptions: {
       header: null
     },
