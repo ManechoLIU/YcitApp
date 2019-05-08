@@ -58,6 +58,7 @@ export default class NewsList extends React.Component {
     createEmptyView() {
         return (
             <View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent')} >
                 <View style={styles.box}>
                     <View style={styles.dateImage}>
                         <Image style={styles.articleImage} source={{ uri: 'http://jwc.ycit.cn/upload/images/2019/4/18/2.png' }} />
@@ -67,8 +68,8 @@ export default class NewsList extends React.Component {
                         <Text numberOfLines={1} style={styles.artcileTitle}>挑战与机遇并存——我校积极推进一流本科专业建设“双万计划”申报工作</Text>
                         <Text numberOfLines={2} style={styles.artcileContent}>4月9日，教育部办公厅正式发布《关于实施一流本科专业建设“双万计划”的通知》（教高厅函〔2019〕18号），决定启动一流本科专业建设“双万计划”。我校随即做出积极反应， 4月11日，副校长王资生组织教学副院长、副主任召开了申报启动会。4月18日上午，在南校区行政楼9楼会议室，校长方海林亲自召集各教学单位院长</Text>
                     </View>
-
                 </View>
+                </TouchableOpacity>
                 <View style={styles.box}>
                     <View>
                         <Image style={styles.articleImage} source={{ uri: 'http://jwc.ycit.cn/upload/images/2019/4/12/1.png' }} />
@@ -135,7 +136,7 @@ export default class NewsList extends React.Component {
     renderItem = (item, index) => {
         return (
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent', { moment_id: item.id })} >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent')} >
                 <View style={styles.box}>
                     <View style={styles.dateImage}>
                         <Image style={styles.articleImage} source={{ uri: 'http://jwc.ycit.cn/upload/images/2019/3/13/%E8%8E%86%E7%94%B0%E5%AD%A6%E9%99%A2.jpg' }} />
