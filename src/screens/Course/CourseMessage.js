@@ -14,6 +14,7 @@ import {
 import Dimensions from 'Dimensions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Util from '../../static/util';
+
 const { width, height } = Dimensions.get('window');
 export default class CourseMessage extends Component {
     constructor(props) {
@@ -40,31 +41,33 @@ export default class CourseMessage extends Component {
                         课程详情
                     </Text>
                 </View>
-
-                <Text style={styles.title}>课程信息</Text>
-                <View style={styles.textWrap}>
-                    <Text style={styles.textName}>课程名称：</Text>
-                    <Text style={styles.textMessage} numberOfLines={1}>{this.props.navigation.state.params.item.fclassName}</Text>
-                </View>
-                <View style={styles.textWrap}>
-                    <Text style={styles.textName}>上课地点：</Text>
-                    <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fPlace}</Text>
-                </View>
-                <View style={styles.textWrap}>
-                    <Text style={styles.textName}>上课教师：</Text>
-                    <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fTeachar}</Text>
-                </View>
-                <View style={styles.textWrap}>
-                    <Text style={styles.textName}>周期：</Text>
-                    <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fzhouqi}</Text>
-                </View>
-                <View style={styles.textWrap}>
-                    <Text style={styles.textName}>星期：</Text>
-                    <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fweek}</Text>
-                </View>
-                <View style={styles.textWrap}>
-                    <Text style={styles.textName}>课时：</Text>
-                    <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fClasstime}</Text>
+                <Text style={styles.title}>课程详情</Text>
+                <View style={styles.contentBar}>
+                    
+                    <View style={styles.textWrap}>
+                        <Text style={styles.textName}>课程名称：</Text>
+                        <Text style={styles.textMessage} numberOfLines={1}>{this.props.navigation.state.params.item.fclassName}</Text>
+                    </View>
+                    <View style={styles.textWrap}>
+                        <Text style={styles.textName}>上课地点：</Text>
+                        <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fPlace}</Text>
+                    </View>
+                    <View style={styles.textWrap}>
+                        <Text style={styles.textName}>上课教师：</Text>
+                        <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fTeachar}</Text>
+                    </View>
+                    <View style={styles.textWrap}>
+                        <Text style={styles.textName}>周        期：</Text>
+                        <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fzhouqi}</Text>
+                    </View>
+                    <View style={styles.textWrap}>
+                        <Text style={styles.textName}>星        期：</Text>
+                        <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fweek}</Text>
+                    </View>
+                    <View style={styles.textWrap}>
+                        <Text style={styles.textName}>课        时：</Text>
+                        <Text style={styles.textMessage}>{this.props.navigation.state.params.item.fClasstime}</Text>
+                    </View>
                 </View>
                 <Text style={styles.title}>同课同学</Text>
                 <View style={styles.ImgGroup}>
@@ -74,7 +77,8 @@ export default class CourseMessage extends Component {
                     <Image style={styles.headImg} source={require('../../assets/head6.jpg')} />
                     <Image style={styles.headImg} source={require('../../assets/head3.jpg')} />
                     <Image style={styles.headImg} source={require('../../assets/head4.jpg')} />
-                    <Image style={styles.headImg} source={require('../../assets/head5.jpg')} />
+                    <Image style={styles.headImg} source={require('../../assets/head1.jpg')} />
+                    
                     <Text style={styles.dot}>···</Text>
                     <Icon
                         name='ios-arrow-forward'
@@ -84,10 +88,11 @@ export default class CourseMessage extends Component {
 
                 <TouchableOpacity style={styles.btn}
                     onPress={() => {
-                        this._fetchAddData(this.props.navigation.state.params.item.fclassName);
+                        // this._fetchAddData(this.props.navigation.state.params.item.fclassName);
+                        this.props.navigation.navigate('Group');
 
                     }}>
-                    <Text style={styles.btnText}>加入该班级群聊</Text>
+                    <Text style={styles.btnText}>我要加入</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -148,14 +153,14 @@ export default class CourseMessage extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#dedfe1',
+        backgroundColor: '#F7F0F1',
     },
     header: {
         marginTop: Platform.OS === 'ios' ? 20 : 0,
         paddingTop: 12,
         paddingBottom: 12,
         height: 48,
-        backgroundColor: '#00b3ca',
+        backgroundColor: '#FD3260',
         flexDirection: 'row',
         paddingLeft: 10,
     },
@@ -185,10 +190,14 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         backgroundColor: '#fff',
         flexDirection: 'row',
+        justifyContent:'space-between',
         height: 40,
+        width: Util.width * 11 / 12-20,
         paddingRight: 15,
         alignItems: 'center',
         marginBottom: 1,
+        borderBottomColor: '#C9C0C2',
+        borderBottomWidth: 0.5,
     },
     textName: {
         fontSize: 18,
@@ -210,13 +219,13 @@ const styles = StyleSheet.create({
         marginTop: 30,
         width: width * 0.9,
         marginLeft: width * 0.05,
-        backgroundColor: '#00b3cb',
+        backgroundColor: '#FD3260',
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#00b3cb',
+        borderColor: '#fff',
     },
     btnText: {
         fontSize: 16,
@@ -224,10 +233,15 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     ImgGroup: {
-        backgroundColor: '#fff',
-        flexDirection: 'row',
-        paddingLeft: 15,
+        width: Util.width * 11 / 12,
+        backgroundColor: '#FFFFFF',
+        // justifyContent: 'center',
         alignItems: 'center',
+        marginLeft: 17,
+        borderRadius: 5,
+        flexDirection: 'row',
+        paddingLeft: 10,
+       
     },
     headImg: {
         width: 40,
@@ -244,7 +258,18 @@ const styles = StyleSheet.create({
     },
     dot: {
         position: 'absolute',
-        right: 40,
+        right: 25,
         fontSize: 40,
+       
+    },
+    contentBar: {
+        width: Util.width * 11 / 12,
+        height: Util.height * 1/2-60,
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 17,
+        borderRadius: 5,
+
     },
 });

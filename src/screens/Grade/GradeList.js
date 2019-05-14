@@ -42,56 +42,66 @@ export default class GradeList extends React.Component {
             }}>
               <Image style={styles.back} source={require('../../assets/grzy-icon.png')}/>
             </TouchableOpacity>
-            <Text style={styles.topTitle}>成绩</Text>
+            <Text style={styles.topTitle}>成绩查询</Text>
             <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Edit')
+              this.props.navigation.navigate('Account')
             }}>
-              <Image style={styles.editImage} source={require('../../assets/grzy-icon-bj.png')}/>
+              <Image style={styles.headerImage} source={require('../../assets/wd-tx.png')}/>
             </TouchableOpacity>
           </View>
-          {/* <View style={styles.user}>
-            <View style={styles.faceLevel}>
-              <Image style={styles.userFace} source={require('../../assets/wd-tx.png')}/>
-              <Image style={styles.level_vip} source={require('../../assets/wd-icon-vip.png')}/>
-            </View>
-            <View style={styles.levelBar}>
-              <Text style={styles.userName}>{this.state.nickname ? this.state.nickname : '用户名'}
-
-              </Text>
-              <Image style={styles.level} source={require('../../assets/icon-women.png')}/>
-
-
-            </View>
-            <View style={styles.labelList}>
-              <Text style={styles.label}>{this.state.hobby}</Text>
-
-            </View>
-          </View> */}
           
           <View style={styles.contentBar}>
           <ScrollView>
-            <View style={styles.contentItem}>
-              <Text style={styles.title}>大学</Text>
-              <Text style={styles.content}>{this.state.university ? this.state.university : '未填写'}</Text>
+          <View style={styles.filed}>
+              <Text style={styles.course}>课程名称</Text>
+              <Text style={styles.grade}>{this.state.university ? this.state.university : '成绩'}</Text>
             </View>
             <View style={styles.contentItem}>
-              <Text style={styles.title}>生日</Text>
-              <Text style={styles.content}>{this.state.birthday ? this.state.birthday : '未填写'}</Text>
+              <Text style={styles.title}>操作系统</Text>
+              <Text style={styles.content}>{this.state.university ? this.state.university : '67.0'}</Text>
+            </View>
+            <View style={styles.contentItem}>
+              <Text style={styles.title}>算法与数据结构</Text>
+              <Text style={styles.content}>{this.state.birthday ? this.state.birthday : '67.0'}</Text>
 
             </View>
             <View style={styles.contentItem}>
-              <Text style={styles.title}>手机号</Text>
-              <Text style={styles.content}>{this.state.mobile ? this.state.mobile : '未填写'}</Text>
+              <Text style={styles.title}>数据库原理及应用</Text>
+              <Text style={styles.content}>{this.state.mobile ? this.state.mobile : '68.0'}</Text>
 
             </View>
             <View style={styles.contentItem}>
-              <Text style={styles.title}>姓名</Text>
-              <Text style={styles.content}>{this.state.name ? this.state.name : '未填写'}</Text>
+              <Text style={styles.title}>软件设计</Text>
+              <Text style={styles.content}>{this.state.name ? this.state.name : '66.0'}</Text>
 
             </View>
-            <View style={styles.idCard}>
-              <Text style={styles.title}>身份证号</Text>
-              <Text style={styles.content}>{this.state.IDcard ? this.state.IDcard : '未填写'}</Text>
+            <View style={styles.contentItem}>
+              <Text style={styles.title}>计算机组成原理与体系结构</Text>
+              <Text style={styles.content}>{this.state.IDcard ? this.state.IDcard : '76.0'}</Text>
+
+            </View>
+            <View style={styles.contentItem}>
+              <Text style={styles.title}>Java语言与面向对象技术</Text>
+              <Text style={styles.content}>{this.state.university ? this.state.university : '87.0'}</Text>
+            </View>
+            <View style={styles.contentItem}>
+              <Text style={styles.title}>人机交互技术</Text>
+              <Text style={styles.content}>{this.state.birthday ? this.state.birthday : '69.0'}</Text>
+
+            </View>
+            <View style={styles.contentItem}>
+              <Text style={styles.title}>软件工程经济学</Text>
+              <Text style={styles.content}>{this.state.mobile ? this.state.mobile : '87.0'}</Text>
+
+            </View>
+            <View style={styles.contentItem}>
+              <Text style={styles.title}>JavaEE技术	</Text>
+              <Text style={styles.content}>{this.state.name ? this.state.name : '90.0'}</Text>
+
+            </View>
+            <View style={styles.contentItem}>
+              <Text style={styles.title}>ASP.NET编程</Text>
+              <Text style={styles.content}>{this.state.IDcard ? this.state.IDcard : '88.0'}</Text>
 
             </View>
            
@@ -125,7 +135,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginLeft: 14,
       marginTop: 18,
-      marginBottom: 15
+      marginBottom: 10
     },
     topTitle: {
       fontWeight: 'bold',
@@ -177,20 +187,36 @@ const styles = StyleSheet.create({
   
     contentBar: {
       width: util.width * 11 / 12,
-      height: util.height * 3 / 5,
+      height: util.height * 4 / 5-35,
       backgroundColor: '#FFFFFF',
       justifyContent: 'center',
       alignItems: 'center',
       marginLeft: 17,
-      marginTop: 15,
       borderRadius: 5,
   
     },
+    course:{
+      color:'#6E97F6',
+      fontWeight:'bold'
+    },
+    grade:{
+      color:'#6E97F6',
+      fontWeight:'bold'
+    },
+    filed:{
+      width: util.width * 7 / 9,
+      flexDirection: 'row',
+      justifyContent:'space-between',
+      borderBottomColor: '#C9C0C2',
+      borderBottomWidth: 0.3,
+      marginBottom: 13,
+      marginTop:8,
+      paddingBottom: 13,
+    },
     contentItem: {
       width: util.width * 7 / 9,
-      flexDirection: 'column',
-  
-  
+      flexDirection: 'row',
+      justifyContent:'space-between',
       borderBottomColor: '#C9C0C2',
       borderBottomWidth: 0.3,
       marginBottom: 13,
@@ -203,9 +229,9 @@ const styles = StyleSheet.create({
   
     },
     content: {
-      fontSize: 18,
-      color: '#453E3E',
-      marginTop: 6
+      fontSize: 14,
+      color: '#15B485',
+      
     },
     idCard: {
       width: util.width * 7 / 9,
@@ -222,10 +248,10 @@ const styles = StyleSheet.create({
       width: 9,
       height: 18
     },
-    editImage: {
+    headerImage: {
       marginLeft: 5,
-      width: 16,
-      height: 17
+      width: 40,
+      height: 40
     }
   
   })

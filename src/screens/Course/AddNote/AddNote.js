@@ -25,7 +25,7 @@ export default class AddNote extends Component {
         super(props);
         this.state = {
             // title: this.props.navigation.state.params.Title,
-            title:'你好',
+            title:'',
             tip: '',
             content: '',
             img: '',
@@ -44,12 +44,12 @@ export default class AddNote extends Component {
                         />
                     </TouchableOpacity>
                     <Text style={styles.headerText}>
-                        添加笔记
+                        写便签
                     </Text>
                 </View>
                 <ScrollView>
                     <View>
-                        <View style={styles.wrap}>
+                        {/* <View style={styles.wrap}>
                             {
                                 this.state.title == '' ? <TextInput
                                     placeholder='请输入科目名'
@@ -65,10 +65,10 @@ export default class AddNote extends Component {
                                 </TextInput> : <Text style={[styles.content1, {paddingTop:10}]}>{this.state.title}</Text>
                             }
 
-                        </View>
+                        </View> */}
                         <View style={styles.wrap}>
                             <TextInput
-                                placeholder='请输入小标题'
+                                placeholder='请输入标题'
                                 underlineColorAndroid='transparent'
                                 keyboardType='default'
                                 style={styles.content1}
@@ -80,7 +80,7 @@ export default class AddNote extends Component {
                                 {this.state.tip}
                             </TextInput>
                         </View>
-                        <View style={styles.wrap}>
+                        <View style={styles.inputContent}>
                             <TextInput
                                 placeholder='请输入内容'
                                 underlineColorAndroid='transparent'
@@ -131,14 +131,14 @@ export default class AddNote extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#dedfe1',
+        backgroundColor: '#F7F0F1',
     },
     header: {
         marginTop: Platform.OS === 'ios' ? 20 : 0,
         paddingTop: 12,
         paddingBottom: 12,
         height: 48,
-        backgroundColor: '#00b3ca',
+        backgroundColor: '#FF0042',
         flexDirection: 'row',
         paddingLeft: 10,
     },
@@ -211,17 +211,25 @@ const styles = StyleSheet.create({
         marginLeft: width * 0.05,
         backgroundColor: '#fff',
     },
+    inputContent:{
+        marginTop: 15,
+        width: width * 0.9,
+        marginLeft: width * 0.05,
+        height:300,
+        backgroundColor: '#fff',
+
+    },
     btn: {
         marginTop: 10,
         width: width * 0.9,
         marginLeft: width * 0.05,
-        backgroundColor: '#00b3cb',
+        backgroundColor: '#FF0042',
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#00b3cb',
+        borderColor: '#ffff',
     },
     btnText: {
         fontSize: 16,

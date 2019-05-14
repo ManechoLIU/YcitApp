@@ -60,7 +60,7 @@ export default class CourseList extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image style={styles.headerImg} source={require('../../assets/logo.png')} />
+                    <Image style={styles.headerImg} source={require('../../assets/wd-icon-wdnr.png')} />
                     <Text style={styles.headerText}>
                         课程表
                     </Text>
@@ -87,7 +87,7 @@ export default class CourseList extends Component {
                 {/*MyID={this.state.MyID}*/}
                 <TouchableOpacity style={styles.noteBtn}
                     onPress={() => { this.props.navigation.navigate('AddNote', { Title: '' }) }}>
-                    <Image style={styles.noteImg} source={require('../../assets/note.png')} />
+                    <Image style={styles.noteImg} source={require('../../assets/publishing.png')} />
                 </TouchableOpacity>
                 <Modal
                     animationType={this.state.animationType}
@@ -99,7 +99,7 @@ export default class CourseList extends Component {
 
                     <View style={[styles.container, modalBackgroundStyle]}>
                         <View style={styles.header}>
-                            <Image style={styles.headerImg} source={require('../../assets/logo.png')} />
+                            <Image style={styles.headerImg} source={require('../../assets/wd-icon-wdnr.png')} />
                             <Text style={styles.headerText}>
                                 课程表
                             </Text>
@@ -115,7 +115,7 @@ export default class CourseList extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-                            <View style={styles.shareAllWrap} >
+                            {/* <View style={styles.shareAllWrap} >
                                 <View style={styles.shareWrap}>
                                     <TouchableOpacity style={styles.shareBtn} onPress={this._setModalVisibleJump.bind(this, 'SchoolImport')}>
                                         <Image style={styles.shareImg} source={require('../../assets/daoru.png')} />
@@ -134,7 +134,7 @@ export default class CourseList extends Component {
                                     </TouchableOpacity>
                                     <Text style={styles.shareText}>校内蹭课</Text>
                                 </View>
-                            </View>
+                            </View> */}
                             <View style={styles.rowWrap}>
                                 <View style={styles.row}>
                                     <Text style={styles.rowTitle}>当前学期:</Text>
@@ -144,10 +144,7 @@ export default class CourseList extends Component {
                                     <Text style={styles.rowTitle}>当前周数:</Text>
                                     <Text style={styles.rowContent}>第2周</Text>
                                 </View>
-                                <View style={styles.rows}>
-                                    <Text style={styles.rowTitle}>每日最大节数:</Text>
-                                    <Text style={styles.rowContent}>12节</Text>
-                                </View>
+                
                             </View>
                         </View>
                     </View>
@@ -186,7 +183,7 @@ export default class CourseList extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#F7F0F1',
     },
     welcome: {
         fontSize: 20,

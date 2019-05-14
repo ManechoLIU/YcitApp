@@ -9,20 +9,20 @@ import {
   Image,
 } from 'react-native';
 import Dimensions from 'Dimensions';
-const {width,height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 import ImagePicker from 'react-native-image-picker';
 let pickPhotoOptions = {
-    title: '选择头像',
-    cancelButtonTitle: '取消',
-    takePhotoButtonTitle: '拍照',
-    chooseFromLibraryButtonTitle: '从相册...',
-    quality: 0.8,
-    allowsEditing: true,
-    noData: false,
-    storageOptions: {
-        skipBackup: true,
-        path: 'images'
-    }
+  title: '选择头像',
+  cancelButtonTitle: '取消',
+  takePhotoButtonTitle: '拍照',
+  chooseFromLibraryButtonTitle: '从相册...',
+  quality: 0.8,
+  allowsEditing: true,
+  noData: false,
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
 };
 export default class Photo extends React.Component {
 
@@ -107,16 +107,16 @@ export default class Photo extends React.Component {
 
 
 
-        { this.state.avatarSource === null ? <TouchableOpacity
-            style={styles.btn}
-            onPress={this.selectPhotoTapped.bind(this)}>  
-                <Text style={styles.btnText}>拍照</Text>
-        </TouchableOpacity>:<TouchableOpacity
-            style={styles.avatar}
-            onPress={this.selectPhotoTapped.bind(this)}>  
-                <Image style={styles.avatar} source={this.state.avatarSource} />
-        </TouchableOpacity>
-             
+        {this.state.avatarSource === null ? <TouchableOpacity
+          style={styles.btn}
+          onPress={this.selectPhotoTapped.bind(this)}>
+          <Text style={styles.btnText}>拍照</Text>
+        </TouchableOpacity> : <TouchableOpacity
+          style={styles.avatar}
+          onPress={this.selectPhotoTapped.bind(this)}>
+            <Image style={styles.avatar} source={this.state.avatarSource} />
+          </TouchableOpacity>
+
         }
         {/*<TouchableOpacity
             style={styles.btn}
@@ -143,7 +143,7 @@ export default class Photo extends React.Component {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    marginTop:20,
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: '#F5FCFF'
@@ -160,21 +160,21 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150
   },
-      btn: {
-        marginTop:20,
-        width:width*0.9,
-        // marginLeft:width*0.05,
-        backgroundColor:'#c3c3c3',
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#c3c3c3',
-    },
-    btnText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#000'
-    },
+  btn: {
+    marginTop: 20,
+    width: width * 0.9,
+    // marginLeft:width*0.05,
+    backgroundColor: '#FF0042',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#fff',
+  },
+  btnText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff'
+  },
 });

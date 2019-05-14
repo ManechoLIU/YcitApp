@@ -5,6 +5,9 @@ import {
 } from 'react-native'
 import Util from "../../static/util"
 import API from '../../static/methods'
+import Dimensions from 'Dimensions';
+const { width, height } = Dimensions.get('window');
+
 // 文章列表页面
 export default class NewsList extends React.Component {
     constructor(props) {
@@ -19,29 +22,23 @@ export default class NewsList extends React.Component {
             lastmoment_id: -1
         }
     }
+    componentDidMount() {
+        var that = this
+        that.GetArticleList()
+    }
     async GetArticleList() {
-        let formData = new FormData()
-        formData.append('user_id', id)
-        console.log("lastmoment_id:")
-        console.log(this.state.lastmoment_id)
-        formData.append('moment_id', this.state.lastmoment_id)
-        formData.append('moment_num', 10)
-        try {
-            let response = await API._fetch(API.post({ url: 'Api/Moment/getMomentViewListBefore', formData }))
-            let responseJson = await response.json()
-
-            if (responseJson.info) {
-                const dataLength = responseJson.data.length;
-                this.setState({
-                    lastmoment_id: responseJson.data[dataLength - 1].id,
-                    articleList: this.state.articleList.concat(responseJson.data)
+        var that = this
+        Util.get('http://localhost:8081/json/NewsData.json', function (data) {
+            if (data.status == 200) {
+                that.setState({
+                    articleList: data.data
                 })
-
-                // API.toastLong('获取文章成功')
+            } else {
+                alert('获取新闻列表失败！');
             }
-        } catch (error) {
-            // API.toastLong('获取文章失败')
-        }
+
+        })
+
     }
 
 
@@ -59,18 +56,18 @@ export default class NewsList extends React.Component {
         return (
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent')} >
-                <View style={styles.box}>
-                    <View style={styles.dateImage}>
-                        <Image style={styles.articleImage} source={{ uri: 'http://jwc.ycit.cn/upload/images/2019/4/18/2.png' }} />
-                        <Text style={styles.date}>2019-04-09</Text>
+                    <View style={styles.box}>
+                        <View style={styles.dateImage}>
+                            <Image style={styles.articleImage} source={{ uri: 'http://jwc.ycit.cn/upload/images/2019/4/18/2.png' }} />
+                            <Text style={styles.date}>2019-04-09</Text>
+                        </View>
+                        <View style={styles.artcileText}>
+                            <Text numberOfLines={1} style={styles.artcileTitle}>挑战与机遇并存——我校积极推进一流本科专业建设“双万计划”申报工作</Text>
+                            <Text numberOfLines={2} style={styles.artcileContent}>4月9日，教育部办公厅正式发布《关于实施一流本科专业建设“双万计划”的通知》（教高厅函〔2019〕18号），决定启动一流本科专业建设“双万计划”。我校随即做出积极反应， 4月11日，副校长王资生组织教学副院长、副主任召开了申报启动会。4月18日上午，在南校区行政楼9楼会议室，校长方海林亲自召集各教学单位院长</Text>
+                        </View>
                     </View>
-                    <View style={styles.artcileText}>
-                        <Text numberOfLines={1} style={styles.artcileTitle}>挑战与机遇并存——我校积极推进一流本科专业建设“双万计划”申报工作</Text>
-                        <Text numberOfLines={2} style={styles.artcileContent}>4月9日，教育部办公厅正式发布《关于实施一流本科专业建设“双万计划”的通知》（教高厅函〔2019〕18号），决定启动一流本科专业建设“双万计划”。我校随即做出积极反应， 4月11日，副校长王资生组织教学副院长、副主任召开了申报启动会。4月18日上午，在南校区行政楼9楼会议室，校长方海林亲自召集各教学单位院长</Text>
-                    </View>
-                </View>
                 </TouchableOpacity>
-                <View style={styles.box}>
+                {/* <View style={styles.box}>
                     <View>
                         <Image style={styles.articleImage} source={{ uri: 'http://jwc.ycit.cn/upload/images/2019/4/12/1.png' }} />
                         <Text style={styles.date}>2019-04-11</Text>
@@ -124,7 +121,7 @@ export default class NewsList extends React.Component {
                         <Text numberOfLines={2} style={styles.artcileContent}>3月7日下午，莆田学院教务处副处长陈志勇一行8人来我校就应用型人才培养方案制定、应用型人才培养模式、学校转型发展的经验与做法、教学管理工作等方面内容进行调研。我校教务处、宣传部、评估处、体育部、人文学院、数理学院等相关人员接待并参加座谈交流。教务处处长王伟主持交流会。会上，王伟向来宾介绍了我校发展历程、办学定位、人才培养、校企合作、工程认证</Text>
                     </View>
 
-                </View>
+                </View> */}
 
             </View>
 
@@ -139,14 +136,13 @@ export default class NewsList extends React.Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent')} >
                 <View style={styles.box}>
                     <View style={styles.dateImage}>
-                        <Image style={styles.articleImage} source={{ uri: 'http://jwc.ycit.cn/upload/images/2019/3/13/%E8%8E%86%E7%94%B0%E5%AD%A6%E9%99%A2.jpg' }} />
-                        <Text style={styles.date}>2019-04-09</Text>
+                        <Image style={styles.articleImage} source={{ uri: item.icon }} />
+                        <Text style={styles.date}>{item.date}</Text>
                     </View>
                     <View style={styles.artcileText}>
-                        <Text numberOfLines={1} style={styles.artcileTitle}>莆田学院来我校调研</Text>
-                        <Text numberOfLines={2} style={styles.artcileContent}>3月7日下午，莆田学院教务处副处长陈志勇一行8人来我校就应用型人才培养方案制定、应用型人才培养模式、学校转型发展的经验与做法、教学管理工作等方面内容进行调研。我校教务处、宣传部、评估处、体育部、人文学院、数理学院等相关人员接待并参加座谈交流。教务处处长王伟主持交流会。会上，王伟向来宾介绍了我校发展历程、办学定位、人才培养、校企合作、工程认证</Text>
+                        <Text numberOfLines={1} style={styles.artcileTitle}>{item.title}</Text>
+                        <Text numberOfLines={2} style={styles.artcileContent}>{item.content}</Text>
                     </View>
-
                 </View>
             </TouchableOpacity>
 
@@ -154,6 +150,7 @@ export default class NewsList extends React.Component {
     }
     render() {
         return (
+    
             <View style={styles.article}>
                 <FlatList
                     data={this.state.articleList}
