@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Image } from 'react-native';
+import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import {
   createStackNavigator,
   createAppContainer,
@@ -83,12 +83,7 @@ const Root = Platform.OS === 'android' ? {
     }
   }
 const StacksOverTabs = createStackNavigator({
-  NewsContent: {
-    screen: NewsContent,
-    navigationOptions: {
-      header: null
-    },
-  },
+ 
   Root: Root,
   CourseList: {
     screen: CourseList,
@@ -127,8 +122,37 @@ const StacksOverTabs = createStackNavigator({
 
     })
   },
-  
+  NewsContent: {
+    screen: NewsContent,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: '文章详情',
+      headerStyle: {
+        //标题栏样式
+        backgroundColor: '#FFFFF',
+      },
+      headerTintColor: '#453E3E',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+      },
+      headerLeft:
+        <TouchableOpacity onPress={() => {
+          navigation.goBack()
+        }}>
+          <Image style={{ marginLeft: 15, width: 9, height: 18 }} source={require('./src/assets/bj-icon-fh.png')} />
+        </TouchableOpacity>,
+      headerRight:
+        <TouchableOpacity onPress={() => {
+          // // navigation.goBack()
+          // DeviceEventEmitter.emit('share')
+          // this.PaymentResponse.navigation.navigate('Share')
+        }}>
+          <Image style={{ marginRight: 20, width: 21, height: 21 }} source={require('./src/assets/tpxq-icon-fx.png')} />
+        </TouchableOpacity>
 
+    }),
+  },
   Account: {
     screen: Account,
     navigationOptions: {
