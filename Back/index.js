@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var newslist = require('./routes/api/newslist');
 var courselist = require('./routes/api/courselist');
+var gradelist = require('./routes/api/gradelist');
 //db 配置
 var db = require('./config/db.js').mongoUrl;
 
@@ -26,6 +27,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(() => {
 
 app.use('/api/newslist', newslist);
 app.use('/api/courselist', courselist);
+app.use('/api/gradelist', gradelist);
 const port = process.env.PORT || 5002;
 
 app.listen(port, () => {

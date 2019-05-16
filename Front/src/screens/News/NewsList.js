@@ -14,12 +14,6 @@ export default class NewsList extends React.Component {
         super(props);
         this.state = {
             articleList: [],
-            isLoading: false,
-            page: 1,
-            moment_id: -1,
-            dataLength: 10,
-            imagesLength: 1,
-            lastmoment_id: -1
         }
     }
     componentDidMount() {
