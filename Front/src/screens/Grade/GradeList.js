@@ -20,7 +20,7 @@ export default class GradeList extends React.Component {
   }
   async GetArticleList() {
     var that = this
-    util.get('http://192.168.43.60:5002/api/gradelist', function (data) {
+    util.get('http://192.168.1.110:5002/api/gradelist', function (data) {
       console.log(data)
       if (data) {
         console.log(data)

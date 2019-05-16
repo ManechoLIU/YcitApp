@@ -22,7 +22,7 @@ export default class NewsList extends React.Component {
     }
     async GetArticleList() {
         var that = this
-        Util.get('http://192.168.43.60:5002/api/newslist', function (data) {
+        Util.get('http://192.168.1.110:5002/api/newslist', function (data) {
             console.log(data)
             if (data) {
                 console.log(data)
