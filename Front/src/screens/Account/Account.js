@@ -78,7 +78,7 @@ export default class Account extends React.Component {
                 </TouchableOpacity>
                 <Text style={styles.topTitle}>个人中心</Text>
                 <TouchableOpacity onPress={() => {
-                  this.props.navigation.navigate('Account')
+                  this.props.navigation.navigate('EditAccount')
                 }}>
                   <Image style={styles.headerImage} source={require('../../assets/grzy-icon-bj.png')} />
                 </TouchableOpacity>

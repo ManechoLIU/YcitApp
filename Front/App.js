@@ -13,6 +13,7 @@ import Account from './src/screens/Account/Account'
 import CourseMessage from './src/screens/Course/CourseMessage'
 import AddNote from './src/screens/Course/AddNote/AddNote'
 import NewsContent from './src/screens/News/NewsContent'
+import EditAccount from './src/screens/Account/EditAccount'
 const CreateTab = createMaterialTopTabNavigator({
   CourseList: {
     screen: CourseList,
@@ -91,7 +92,6 @@ const StacksOverTabs = createStackNavigator({
       header: null
     }
   },
-
   GradeList: {
     screen: GradeList,
     navigationOptions: {
@@ -158,6 +158,12 @@ const StacksOverTabs = createStackNavigator({
     navigationOptions: {
       header: null
     },
+  },
+  EditAccount: {
+    screen: EditAccount,
+    navigationOptions: {
+      header: null
+    }
   },
   CourseMessage: {
     screen: CourseMessage,
