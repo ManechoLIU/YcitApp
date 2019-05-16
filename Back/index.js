@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 //根据token验证获取数据
 var app = express();
 var newslist = require('./routes/api/newslist');
+var courselist = require('./routes/api/courselist');
 //db 配置
 var db = require('./config/db.js').mongoUrl;
 
@@ -24,6 +25,7 @@ mongoose.connect(db, { useNewUrlParser: true }).then(() => {
 });
 
 app.use('/api/newslist', newslist);
+app.use('/api/courselist', courselist);
 const port = process.env.PORT || 5002;
 
 app.listen(port, () => {

@@ -83,6 +83,21 @@ const Root = Platform.OS === 'android' ? {
     }
   }
 const StacksOverTabs = createStackNavigator({
+  
+  Root: Root,
+  CourseList: {
+    screen: CourseList,
+    navigationOptions: {
+      header: null
+    }
+  },
+
+  GradeList: {
+    screen: GradeList,
+    navigationOptions: {
+      header: null
+    },
+  },
   NewsList: {
     screen: NewsList,
     navigationOptions: ({ navigation }) => ({
@@ -106,22 +121,6 @@ const StacksOverTabs = createStackNavigator({
 
     })
   },
-  
-  Root: Root,
-  CourseList: {
-    screen: CourseList,
-    navigationOptions: {
-      header: null
-    }
-  },
-
-  GradeList: {
-    screen: GradeList,
-    navigationOptions: {
-      header: null
-    },
-  },
-
   
   NewsContent: {
     screen: NewsContent,

@@ -246,7 +246,7 @@ export default class Grids extends Component {
     }
     _fetchData() {
         var self = this;
-        Util.get('http://localhost:8081/json/classData.json', function (data) {
+        Util.get('http://192.168.43.60:5002/api/courselist', function (data) {
             console.log("fetchData!!!")
             console.log(data)
             if (data) {

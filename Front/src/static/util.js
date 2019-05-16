@@ -258,5 +258,4 @@ export default {
   toastLong,
   xmlToJson,
   get
-
 }
