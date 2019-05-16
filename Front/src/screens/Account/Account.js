@@ -12,14 +12,52 @@ import API from '../../static/methods'
 export default class Account extends React.Component {
 
   constructor(props) {
-
     super(props);
     this.state = {
-      nick_name: '',
-      head_pic: '',
-      particle: '',
-      leadership: ''
+      userList:[],
+      name: '',
+      sno: '',
+      sex: '',
+      headImg: '',
+      birthday: '',
+      major: '',
+      class: '',
+      phone: '',
+      email: ''
     }
+  }
+  componentDidMount() {
+    var that = this
+    that.GetUserList()
+  }
+  async GetUserList() {
+    var that = this
+    util.get('http://192.168.1.110:5002/api/userlist', function (data) {
+      console.log(data)
+      if (data) {
+        that.setState({
+          userList: data,
+          name: data[0].name,
+          sno: data[0].sno,
+          sex: data[0].sex,
+          headImg: data[0].headImg,
+          birthday: data[0].birthday,
+          major: data[0].major,
+          class: data[0].class,
+          phone: data[0].phone,
+          email: data[0].email
+        })
+      } else {
+        alert('获取用户列表失败！');
+        console.log("shibai")
+      }
+
+    }, function (err) {
+      alert(err);
+      console.log(err)
+      alert('服务异常,正在紧急修复,请耐心等待');
+    })
+
   }
 
 
@@ -27,207 +65,206 @@ export default class Account extends React.Component {
   render() {
     return (
       <View>
-        
-      <ScrollView style={styles.me}>
-      
-        <View style={styles.meAbove}>
-          <ImageBackground style={styles.bgImage} source={require('../../assets/wd-bj.png')} >
-          <View style={styles.meTop}>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.goBack()
-            }}>
-              <Image style={styles.back} source={require('../../assets/grzy-icon.png')}/>
-            </TouchableOpacity>
-            <Text style={styles.topTitle}>个人中心</Text>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Account')
-            }}>
-              <Image style={styles.headerImage} source={require('../../assets/grzy-icon-bj.png')}/>
-            </TouchableOpacity>
+
+        <ScrollView style={styles.me}>
+
+          <View style={styles.meAbove}>
+            <ImageBackground style={styles.bgImage} source={require('../../assets/wd-bj.png')} >
+              <View style={styles.meTop}>
+                <TouchableOpacity onPress={() => {
+                  this.props.navigation.goBack()
+                }}>
+                  <Image style={styles.back} source={require('../../assets/grzy-icon.png')} />
+                </TouchableOpacity>
+                <Text style={styles.topTitle}>个人中心</Text>
+                <TouchableOpacity onPress={() => {
+                  this.props.navigation.navigate('Account')
+                }}>
+                  <Image style={styles.headerImage} source={require('../../assets/grzy-icon-bj.png')} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.user}>
+                <Text style={styles.userName}>{this.state.nick_name}</Text>
+                <TouchableOpacity onPress={() => {
+                  this.props.navigation.navigate('Home')
+                }}>
+                  <View style={styles.faceLevel}>
+                    <Image style={styles.userFace} source={{uri:this.state.headImg}} />
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.numBar}>
+                  {/*<View style={styles.num}>*/}
+                  {/*<Text style={styles.grain}>关注</Text>*/}
+                  {/*<Text style={styles.grain}>100</Text>*/}
+                  {/*</View>*/}
+                  {/*<View style={styles.num}>*/}
+                  {/*<Text style={styles.charm}>粉丝</Text>*/}
+                  {/*<Text style={styles.grain}>30</Text>*/}
+                  {/*</View>*/}
+                  <View style={styles.num}>
+                    <Text style={styles.grain}>用户名：</Text>
+                    <Text style={styles.grain} >{this.state.name}</Text>
+                  </View>
+                  <View style={styles.num}>
+                    <Text style={styles.charm}>学号：</Text>
+                    <Text style={styles.grain}>{this.state.sno}</Text>
+                  </View>
+                </View>
+              </View>
+            </ImageBackground>
+
           </View>
-            <View style={styles.user}>
-              <Text style={styles.userName}>{this.state.nick_name}</Text>
+
+          <View style={styles.meBelow}>
+
+            <View style={styles.iconBar}>
               <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('Home')
+                this.props.navigation.navigate('CourseList')
               }}>
-                <View style={styles.faceLevel}>
-                  <Image style={styles.userFace} source={require('../../assets/wd-tx.png')} />
-                  <Image style={styles.level} source={require('../../assets/wd-icon-vip.png')} />
+                <View style={styles.iconItem}>
+                  <Image style={styles.icons} source={require('../../assets/wd-icon-ds.png')} />
+                  <Text style={styles.icontext}>课表</Text>
                 </View>
               </TouchableOpacity>
-              <View style={styles.numBar}>
-                {/*<View style={styles.num}>*/}
-                {/*<Text style={styles.grain}>关注</Text>*/}
-                {/*<Text style={styles.grain}>100</Text>*/}
-                {/*</View>*/}
-                {/*<View style={styles.num}>*/}
-                {/*<Text style={styles.charm}>粉丝</Text>*/}
-                {/*<Text style={styles.grain}>30</Text>*/}
-                {/*</View>*/}
-                <View style={styles.num}>
-                  <Text style={styles.grain}>用户名：</Text>
-                  <Text style={styles.grain} >{this.state.particle ? this.state.particle : '刘曼'}</Text>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('GradeList')
+              }}>
+                <View style={styles.iconItem}>
+                  <Image style={styles.icons} source={require('../../assets/wd-icon-dz.png')} />
+                  <Text style={styles.icontext}>成绩</Text>
                 </View>
-                <View style={styles.num}>
-                  <Text style={styles.charm}>学号：</Text>
-                  <Text style={styles.grain}>{this.state.leadership ? this.state.leadership : '1510701217'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('NewsList')
+              }}>
+                <View style={styles.iconItem}>
+                  <Image style={styles.icons} source={require('../../assets/wd-icon-tz.png')} />
+                  <Text style={styles.icontext}>新闻</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Comment')
+              }}>
+                <View style={styles.iconItem}>
+                  <Image style={styles.icons} source={require('../../assets/wd-icon-ly.png')} />
+                  <Text style={styles.icontext}>评论</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </ImageBackground>
+            <Text style={styles.information}>基本资料</Text>
+            <View style={styles.contentBar}>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('MyContent')
+              }}>
 
-        </View>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>姓名</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>{this.state.name}</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                API.toastLong('功能仍在开发中……尽情期待～')
+              }}>
 
-        <View style={styles.meBelow}>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('MyContent')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>性别</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>{this.state.sex}</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Confirm')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>生日</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>{this.state.birthday}</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Setting')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>专业</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>{this.state.major}</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Setting')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>班级</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>{this.state.class}</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Setting')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>手机</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>{this.state.phone}</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Setting')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>邮箱</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>{this.state.email}</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Setting')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>班级</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>软件152</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
 
-          <View style={styles.iconBar}>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('CourseList')
-            }}>
-              <View style={styles.iconItem}>
-                <Image style={styles.icons} source={require('../../assets/wd-icon-ds.png')} />
-                <Text style={styles.icontext}>课表</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('GradeList')
-            }}>
-              <View style={styles.iconItem}>
-                <Image style={styles.icons} source={require('../../assets/wd-icon-dz.png')} />
-                <Text style={styles.icontext}>成绩</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('NewsList')
-            }}>
-              <View style={styles.iconItem}>
-                <Image style={styles.icons} source={require('../../assets/wd-icon-tz.png')} />
-                <Text style={styles.icontext}>新闻</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Comment')
-            }}>
-              <View style={styles.iconItem}>
-                <Image style={styles.icons} source={require('../../assets/wd-icon-ly.png')} />
-                <Text style={styles.icontext}>评论</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.information}>基本资料</Text>
-          <View style={styles.contentBar}>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('MyContent')
-            }}>
+              <TouchableOpacity onPress={() => {
+                this.props.navigation.navigate('Setting')
+              }}>
+                <View style={styles.contentItem}>
+                  <Text style={styles.content}>班级</Text>
+                  <View style={styles.detail}>
+                    <Text style={styles.content}>软件152</Text>
+                    <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
+                  </View>
+                </View>
+              </TouchableOpacity>
 
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>姓名</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>刘曼</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              API.toastLong('功能仍在开发中……尽情期待～')
-            }}>
-              
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-               this.props.navigation.navigate('MyContent')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>性别</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>女</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Confirm')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>生日</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>1996-02-28</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Setting')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>专业</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>软件工程</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Setting')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>班级</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>软件152</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Setting')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>手机</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>17805120193</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Setting')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>邮箱</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>2064627646@qq.com</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Setting')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>班级</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>软件152</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-            
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Setting')
-            }}>
-              <View style={styles.contentItem}>
-                <Text style={styles.content}>班级</Text>
-                <View style={styles.detail}>
-                  <Text style={styles.content}>软件152</Text>
-                  <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
-                </View>
-              </View>
-            </TouchableOpacity>
-           
+
+            </View>
 
           </View>
-
-        </View>
-      </ScrollView>
+        </ScrollView>
       </View>
 
     )
@@ -316,7 +353,7 @@ const styles = StyleSheet.create({
   },
   contentBar: {
     width: util.width * 11 / 12,
-    height: util.height *2/ 3,
+    height: util.height * 2 / 3,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',

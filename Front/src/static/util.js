@@ -233,9 +233,7 @@ function xmlToJson(xmlStr) {
   fetch(url,options)
     .then((response) => response.text())
     .then((responseText) => {
-      console.log(responseText)
       successCallback(JSON.parse(responseText));
-
     })
     .catch(function(err){
       console.log('shibao')
