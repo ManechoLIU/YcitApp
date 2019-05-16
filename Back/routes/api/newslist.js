@@ -1,66 +1,38 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../../config/db.js').mongoUrl;
 var NewsList = require('../../models/NewsList');
-var MongoClient = require('mongodb').MongoClient;
-router.get('/', function (err, db) {
-    // res.send("hello")
+// var MongoClient = require('mongodb').MongoClient;
 
-    findData(db, function(result) {
-        //显示结果
-        console.log(result);
-       
+router.get('/', function (req, res) {
+    NewsList.find({}, function (err, data) {
+        if (err) throw  err;
+        res.send(data)
     });
-
-})
-var findData = function(db, callback) {  
-    //获得指定的集合 
-    var collection =db.client('NewsList');
-   
-    collection.find({}).toArray(function(err, result) { 
-        //如果存在错误
-        if(err)
-        {
-            console.log('Error:'+ err);
-            return;
-        } 
-        //调用传入的回调方法，将操作结果返回
-        callback(result);
-    });
-}
-// router.get('/newslist', function (req, res, next) {
-//     NewsList.find({}, function (err, resData) {
-//         if (err) {
-//             res.end("Error");
-//             // console.log(err);
-//             return next(err);
-//         }
-//         console.log("result:"+resData);
-//         res.render({
-//             testData:resData
-//         });
-
-//     })
-// });
-// var findData = function (db, callback) {
-
-//     // var collection = db.collection('NewsList');
-//     NewsList.find({},(function (err, result) {
-//         //如果存在错误
-//         if (err) {
-//             console.log('Error:' + err);
-//             return;
-//         }
-//         //调用传入的回调方法，将操作结果返回
-//         callback(result);
-//     }));
-// }
-
-// router.get('/', function (err, db) {
-//     findData(db, function (result) {
-//         //显示结果
-//         console.log("result:"+result);
-
-//     });
-// });
+});
+router.post('/add',(req,res)=>{
+    var profileFileldes = {};
+    if(req.body.id) profileFileldes.id = req.body.id;
+    if(req.body.date) profileFileldes.date = req.body.date;
+    if(req.body.writer) profileFileldes.writer = req.body.writer;
+    if(req.body.icon) profileFileldes.icon = req.body.icon;
+    if(req.body.title) profileFileldes.title = req.body.title;
+    if(req.body.content) profileFileldes.content = req.body.content;
+    // if(req.body.extra_params){
+    //     let extra_params = req.body.extra_params;
+    //     if(JSON.stringify(extra_params) === '{}'){
+    //         profileFileldes.extra_param = {"exports": "extra_params是扩展字段"};
+    //     } else {
+    //         profileFileldes.extra_params = req.body.extra_params
+    //     }
+    // }
+    new NewsList(profileFileldes).save().then(profile => {
+        res.json({
+            data:profile,
+            status:2
+        })
+    }).catch(err=>res.status(400).json({
+        msg:err,
+        status:0
+    }))
+});
 module.exports = router;

@@ -1,11 +1,11 @@
-import {Dimensions} from 'react-native'
+import { Dimensions } from 'react-native'
 import Toast from 'react-native-root-toast';
 const address = 'http://222.188.0.101/'
-let {width, 
-  height, 
-  scale} = Dimensions.get('window');
+let { width,
+  height,
+  scale } = Dimensions.get('window');
 
-  // height = height>700? height*1.05: height
+// height = height>700? height*1.05: height
 
 let backgroundColor = '#f0f0f0'
 let toast;
@@ -49,20 +49,20 @@ function toastLong(content) {
 function post({ url, formData } = {}) {
   console.log('post')
   options = {
-      method: "POST",
-      headers: {
-          Accept: "application/json"
-      },
-      body: formData
+    method: "POST",
+    headers: {
+      Accept: "application/json"
+    },
+    body: formData
   };
   var promise = new Promise(function (resolve, reject) {
-      fetch(address + url, options).then(data => {
-          console.log('******')
-          resolve(data);
-          console.log('data'+data)
-      }).catch(error => {
-          reject(error);
-      });
+    fetch(address + url, options).then(data => {
+      console.log('******')
+      resolve(data);
+      console.log('data' + data)
+    }).catch(error => {
+      reject(error);
+    });
   });
   return promise;
 
@@ -75,12 +75,12 @@ function post({ url, formData } = {}) {
 function _fetch(fetch_promise, timeout = 15000) {
   var abort_fn = null;
   setTimeout(function () {
-      abort_fn();
+    abort_fn();
   }, timeout);
   var abort_promise = new Promise(function (resolve, reject) {
-      abort_fn = function () {
-          reject("timeout");
-      };
+    abort_fn = function () {
+      reject("timeout");
+    };
   });
   var abortable_promise = Promise.race([fetch_promise, abort_promise]);
   return abortable_promise;
@@ -88,31 +88,31 @@ function _fetch(fetch_promise, timeout = 15000) {
 //网络变化监听
 function network() {
   NetInfo.addEventListener("connectionChange", data => {
-      data.type == "none"
-          ? Alert.alert("网络连接已断开", "请检查你的网络，确保在网络连接下进行使用", [
-              {
-                  text: "确定",
-                  onPress: () => { }
-              }
-          ])
-          : "";
+    data.type == "none"
+      ? Alert.alert("网络连接已断开", "请检查你的网络，确保在网络连接下进行使用", [
+        {
+          text: "确定",
+          onPress: () => { }
+        }
+      ])
+      : "";
   });
 }
 // 安卓后退处理
 function backhandler() {
   let listener = BackHandler.addEventListener("hardwareBackPress", () => {
-      Alert.alert("提示", "您确定要退出吗？", [
-          {
-              text: "确定",
-              onPress: () => {
-                  BackHandler.exitApp();
-              }
-          }, {
-              text: "取消",
-              onPress: () => { }
-          }
-      ], { cancelable: false });
-      return true;
+    Alert.alert("提示", "您确定要退出吗？", [
+      {
+        text: "确定",
+        onPress: () => {
+          BackHandler.exitApp();
+        }
+      }, {
+        text: "取消",
+        onPress: () => { }
+      }
+    ], { cancelable: false });
+    return true;
   });
   return listener;
 }
@@ -133,10 +133,10 @@ function modalAlert({
   confirmFunction = () => { }
 } = {}) {
   Alert.alert(title, content, [
-      {
-          text: confirmtext,
-          onPress: confirmFunction
-      }
+    {
+      text: confirmtext,
+      onPress: confirmFunction
+    }
   ]);
 }
 /**
@@ -159,70 +159,78 @@ function confirmAlert({
   cancelFunction = () => { }
 } = {}) {
   Alert.alert(title, content, [
-      {
-          text: confirmtext,
-          onPress: confirmFunction
-      }, {
-          text: canceltext,
-          onPress: cancelFunction
-      }
+    {
+      text: confirmtext,
+      onPress: confirmFunction
+    }, {
+      text: canceltext,
+      onPress: cancelFunction
+    }
   ], { cancelable: false });
 }
 function xmlToJson(xmlStr) {
-  xmlStr= xmlStr.replace(/&lt;/g,'<');//防止有转义字符
-  xmlStr=  xmlStr.replace(/&gt;/g,'>');
-  xmlStr=  xmlStr.replace(/&amp;/g,'&');
-  var str1 = "",str2 = "",str3 = "";
-  let str =xmlStr;
+  xmlStr = xmlStr.replace(/&lt;/g, '<');//防止有转义字符
+  xmlStr = xmlStr.replace(/&gt;/g, '>');
+  xmlStr = xmlStr.replace(/&amp;/g, '&');
+  var str1 = "", str2 = "", str3 = "";
+  let str = xmlStr;
   let start1 = false;
   let start2 = false;
   var arr = [];
-  for(let i =0;i<str.length;i++){
-      let s = str[i];
-      if(start1&&s!==">"&&s!=='<'){
-          str1+=s;
-      }else if(str1!==""){
-          arr.push(str1);
-          str1 = "";
-      }
-      if(start2&&s!==">"&&s!=='<'){
-          str2+=s;
-      }else if(str2!==""){
-          arr.push(str2);
-          str2 = "";
-      }
-      if(s==='<'){
-          start1 = true;
-          start2 = false;
-      }
-      if(s==='>'){
-          start1 = false;
-          start2 = true;
-      }
+  for (let i = 0; i < str.length; i++) {
+    let s = str[i];
+    if (start1 && s !== ">" && s !== '<') {
+      str1 += s;
+    } else if (str1 !== "") {
+      arr.push(str1);
+      str1 = "";
+    }
+    if (start2 && s !== ">" && s !== '<') {
+      str2 += s;
+    } else if (str2 !== "") {
+      arr.push(str2);
+      str2 = "";
+    }
+    if (s === '<') {
+      start1 = true;
+      start2 = false;
+    }
+    if (s === '>') {
+      start1 = false;
+      start2 = true;
+    }
 
 
   }
   var json = {};
-  for(let i = 0;i<arr.length-2;i++){
-      let strtemp = arr[i+2];
+  for (let i = 0; i < arr.length - 2; i++) {
+    let strtemp = arr[i + 2];
 
 
 
-      if(strtemp.length>2 && strtemp===("/"+arr[i])){
+    if (strtemp.length > 2 && strtemp === ("/" + arr[i])) {
 
-          strtemp =strtemp.substring(1,strtemp.length);
+      strtemp = strtemp.substring(1, strtemp.length);
 
-          if(arr[i] === strtemp){
-              json[arr[i]]=arr[i+1];
-          }
-      };
+      if (arr[i] === strtemp) {
+        json[arr[i]] = arr[i + 1];
+      }
+    };
   }
 
   return json;
 }
  function get(url, successCallback, failCallback){
+  
    console.log("enter get!!!")
-  fetch(url)
+   options = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+};
+  fetch(url,options)
     .then((response) => response.text())
     .then((responseText) => {
       console.log(responseText)
@@ -230,6 +238,7 @@ function xmlToJson(xmlStr) {
 
     })
     .catch(function(err){
+      console.log('shibao')
       failCallback(err);
     });
 }

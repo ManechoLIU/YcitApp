@@ -4,26 +4,28 @@ var Schema = mongoose.Schema;
 //创建 Schema
 var NewsListSchema = new Schema({
     id:{
-        type:String
+        type:String,
+        // required:true
     },
     date:{  //日期
-        type:String
+        type:String,
+        // required:true
     },
     writer:{
         type:String,
-        required:true
+        // required:true
     },
     icon:{
         type:String,
-        required:true
+        // required:true
     },
     title:{     //标题
         type:String,
-        required:true
+        // required:true
     },
     content:{     //内容
         type:String,
-        required:true
+        // required:true
     },
 });
 
