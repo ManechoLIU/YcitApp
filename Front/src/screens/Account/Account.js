@@ -14,7 +14,7 @@ export default class Account extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userList:[],
+      userList: [],
       name: '',
       sno: '',
       sex: '',
@@ -88,9 +88,7 @@ export default class Account extends React.Component {
                 <TouchableOpacity onPress={() => {
                   this.props.navigation.navigate('Home')
                 }}>
-                  <View style={styles.faceLevel}>
-                    <Image style={styles.userFace} source={{uri:this.state.headImg}} />
-                  </View>
+                  <Image style={styles.userFace} source={{ uri: this.state.headImg }} />
                 </TouchableOpacity>
                 <View style={styles.numBar}>
                   {/*<View style={styles.num}>*/}
