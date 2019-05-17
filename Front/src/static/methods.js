@@ -57,7 +57,7 @@ function post({ url, formData } = {}) {
         fetch(address + url, options).then(data => {
             console.log('******')
             resolve(data);
-            console.log('data'+data)
+            console.log('data' + data)
         }).catch(error => {
             reject(error);
         });
@@ -65,20 +65,20 @@ function post({ url, formData } = {}) {
     return promise;
 
 }
-function POST({ url} = {}) {
+function POST({ url } = {}) {
     console.log('post')
     options = {
         method: "POST",
         headers: {
             Accept: "application/json"
         },
-     
+
     };
     var promise = new Promise(function (resolve, reject) {
         fetch(address + url, options).then(data => {
             console.log('******')
             resolve(data);
-            console.log('data'+data)
+            console.log('data' + data)
         }).catch(error => {
             reject(error);
         });
@@ -89,19 +89,19 @@ function POST({ url} = {}) {
 
 function postImage({ url, formData } = {}) {
     console.log('post')
-    fetch(uraddress + url,{ 
-        method:'POST', 
-        headers:{ 
-         'Content-Type':'multipart/form-data', 
-        }, 
-        body:formData, 
-        }) 
-        .then((response) => response.text() ) 
-        .then((responseData)=>{ 
-         
-        console.log('responseData',responseData); 
-        }) 
-        .catch((error)=>{console.error('error',error)}); 
+    fetch(uraddress + url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
+    })
+        .then((response) => response.text())
+        .then((responseData) => {
+
+            console.log('responseData', responseData);
+        })
+        .catch((error) => { console.error('error', error) });
 }
 
 function get({ url, formData } = {}) {
@@ -232,8 +232,13 @@ function imagePicker() {
     console.log('enter imagePicker')
     StatusBar.setBarStyle("dark-content");
     let promise = new Promise(function (resolve, reject) {
+        
         ImageCropPicker
-            .openPicker({ mediaType: "photo", writeTempFile: false, loadingLabelText: "正在处理图片" })
+            .openPicker({
+                mediaType: "photo",
+                writeTempFile: false,
+                loadingLabelText: "正在处理图片"
+            })
             .then(data => {
                 StatusBar.setBarStyle("light-content");
                 resolve(data);

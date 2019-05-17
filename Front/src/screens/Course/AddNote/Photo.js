@@ -118,14 +118,14 @@ export default class Photo extends React.Component {
           </TouchableOpacity>
 
         }
-        {/*<TouchableOpacity
+        {/* <TouchableOpacity
             style={styles.btn}
             onPress={this.selectPhotoTapped.bind(this)}>  
                 <Text style={styles.btnText}>拍照</Text>
         </TouchableOpacity>
-        <Image style={styles.avatar} source={this.state.avatarSource} />*/}
+        <Image style={styles.avatar} source={this.state.avatarSource} />
 
-        {/*<TouchableOpacity onPress={this.selectVideoTapped.bind(this)}>
+        <TouchableOpacity onPress={this.selectVideoTapped.bind(this)}>
           <View style={[styles.avatar, styles.avatarContainer]}>
             <Text>Select a Video</Text>
           </View>
@@ -133,7 +133,7 @@ export default class Photo extends React.Component {
 
         { this.state.videoSource &&
           <Text style={{margin: 8, textAlign: 'center'}}>{this.state.videoSource}</Text>
-        }*/}
+        } */}
       </View>
     );
   }

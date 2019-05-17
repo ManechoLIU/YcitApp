@@ -3,7 +3,7 @@ import { Text, View, Image, ImageBackground, TextInput, StyleSheet, ScrollView, 
 import util from "../../static/util"
 import { connect } from 'react-redux'
 import Button from 'react-native-button'
-import VerificationCodeButton from '../../components/verificationCodeButton'
+import VerificationCodeButton from '../../components/VerificationCodeButton'
 import API from '../../static/methods'
 export default class ForgetPassword extends React.Component {
     constructor() {

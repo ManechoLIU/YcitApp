@@ -3,6 +3,7 @@ import {
   Text, Navigator, DeviceEventEmitter, ScrollView, View, Image, ImageBackground, StyleSheet, Button,
   TouchableOpacity, AsyncStorage
 } from 'react-native'
+
 import util from "../../static/util"
 import API from '../../static/methods'
 
@@ -86,7 +87,7 @@ export default class Account extends React.Component {
               <View style={styles.user}>
                 <Text style={styles.userName}>{this.state.nick_name}</Text>
                 <TouchableOpacity onPress={() => {
-                  this.props.navigation.navigate('Home')
+
                 }}>
                   <Image style={styles.userFace} source={{ uri: this.state.headImg }} />
                 </TouchableOpacity>
