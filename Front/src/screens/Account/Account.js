@@ -16,13 +16,14 @@ export default class Account extends React.Component {
     super(props);
     this.state = {
       userList: [],
+      username: '',
       name: '',
       sno: '',
       sex: '',
       headImg: '',
       birthday: '',
       major: '',
-      class: '',
+      classes: '',
       phone: '',
       email: ''
     }
@@ -33,11 +34,12 @@ export default class Account extends React.Component {
   }
   async GetUserList() {
     var that = this
-    util.get('http://192.168.1.106:5002/api/userlist', function (data) {
+    util.get('http://192.168.43.60:5002/api/userlist', function (data) {
       console.log(data)
       if (data) {
         that.setState({
           userList: data,
+          username: data[0].username,
           name: data[0].name,
           sno: data[0].sno,
           sex: data[0].sex,
@@ -102,7 +104,7 @@ export default class Account extends React.Component {
                   {/*</View>*/}
                   <View style={styles.num}>
                     <Text style={styles.grain}>用户名：</Text>
-                    <Text style={styles.grain} >{this.state.name}</Text>
+                    <Text style={styles.grain} >{this.state.username}</Text>
                   </View>
                   <View style={styles.num}>
                     <Text style={styles.charm}>学号：</Text>
@@ -208,7 +210,7 @@ export default class Account extends React.Component {
                 <View style={styles.contentItem}>
                   <Text style={styles.content}>班级</Text>
                   <View style={styles.detail}>
-                    <Text style={styles.content}>{this.state.class}</Text>
+                    <Text style={styles.content}>{this.state.classes}</Text>
                     <Image style={styles.right} source={require('../../assets/wd-icon-it.png')} />
                   </View>
                 </View>

@@ -11,12 +11,14 @@ router.get('/', function (req, res) {
 });
 router.post('/add',(req,res)=>{
     var profileFileldes = {};
+    if(req.body.username) profileFileldes.username = req.body.username;
     if(req.body.name) profileFileldes.name = req.body.name;
+    if(req.body.sno) profileFileldes.sno = req.body.sno;
     if(req.body.sex) profileFileldes.sex = req.body.sex;
     if(req.body.headImg) profileFileldes.headImg = req.body.headImg;
     if(req.body.birthday) profileFileldes.birthday = req.body.birthday;
     if(req.body.major) profileFileldes.major = req.body.major;
-    if(req.body.class) profileFileldes.class = req.body.class;
+    if(req.body.classes) profileFileldes.classes = req.body.classes;
     if(req.body.phone) profileFileldes.phone = req.body.phone;
     if(req.body.email) profileFileldes.email = req.body.email;
     // if(req.body.extra_params){

@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 const { width, height } = Dimensions.get('window');
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
+import ImageCropPicker from "react-native-image-crop-picker";
 let pickPhotoOptions = {
   title: '选择头像',
   cancelButtonTitle: '取消',
@@ -19,10 +20,13 @@ let pickPhotoOptions = {
   quality: 0.8,
   allowsEditing: true,
   noData: false,
+  image: null,
+  images: null,
   storageOptions: {
     skipBackup: true,
     path: 'images'
-  }
+  },
+  testImage:''
 };
 export default class Photo extends React.Component {
 
@@ -40,30 +44,45 @@ export default class Photo extends React.Component {
         skipBackup: true
       }
     };
+    ImageCropPicker.openCamera({
+      cropping: true,
+      width: 500,
+      height: 500,
+      includeExif: true,
+    }).then(image => {
+      console.log('received image', image);
+      this.setState({
+        image: { uri: image.path, width: image.width, height: image.height },
+        images: null,
+        testImage:image.path
+      });
+      console.log(this.state.testImage+'00000')
+    }).catch(e => alert(e));
 
-    ImagePicker.showImagePicker(pickPhotoOptions, (response) => {
-      console.log('Response = ', response);
 
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      }
-      else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        let source = { uri: response.uri };
+    // ImagePicker.showImagePicker(pickPhotoOptions, (response) => {
+    //   console.log('Response = ', response);
 
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+    //   if (response.didCancel) {
+    //     console.log('User cancelled photo picker');
+    //   }
+    //   else if (response.error) {
+    //     console.log('ImagePicker Error: ', response.error);
+    //   }
+    //   else if (response.customButton) {
+    //     console.log('User tapped custom button: ', response.customButton);
+    //   }
+    //   else {
+    //     let source = { uri: response.uri };
 
-        this.setState({
-          avatarSource: source
-        });
-      }
-    });
+    //     // You can also display the image using data:
+    //     // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+    //     this.setState({
+    //       avatarSource: source
+    //     });
+    //   }
+    // });
   }
 
   // selectVideoTapped() {

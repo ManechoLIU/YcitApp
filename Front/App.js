@@ -87,7 +87,7 @@ const Root = Platform.OS === 'android' ? {
     }
   }
 const StacksOverTabs = createStackNavigator({
-  
+ 
   Login:{
     screen:Login,
     navigationOptions:{

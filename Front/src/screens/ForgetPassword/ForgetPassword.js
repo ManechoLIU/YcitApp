@@ -67,7 +67,7 @@ export default class ForgetPassword extends React.Component {
                     </View> */}
                 </View>
 
-                <Button containerStyle={styles.button} onPress={() => { this.Login() }} >
+                <Button containerStyle={styles.button} onPress={() => { this.props.navigation.navigate('Login') }} >
                     <Text style={styles.next}> 下一步</Text>
                 </Button>
 
