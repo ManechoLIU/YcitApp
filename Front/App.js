@@ -14,6 +14,9 @@ import CourseMessage from './src/screens/Course/CourseMessage'
 import AddNote from './src/screens/Course/AddNote/AddNote'
 import NewsContent from './src/screens/News/NewsContent'
 import EditAccount from './src/screens/Account/EditAccount'
+import Login from './src/screens/Login/Login'
+import Register from './src/screens/Register/Register' 
+import ForgetPassword from './src/screens/ForgetPassword/ForgetPassword'
 const CreateTab = createMaterialTopTabNavigator({
   CourseList: {
     screen: CourseList,
@@ -85,7 +88,45 @@ const Root = Platform.OS === 'android' ? {
   }
 const StacksOverTabs = createStackNavigator({
   
+  Login:{
+    screen:Login,
+    navigationOptions:{
+      header:null
+    }
+  },
+   Register:{
+    screen:Register,
+    navigationOptions:{
+      header:null
+    }
+  },
+ 
   Root: Root,
+  ForgetPassword: {
+    screen: ForgetPassword,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: '找回密码',
+
+      headerStyle: {
+        //标题栏样式
+        backgroundColor: '#FF0042',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+      },
+      headerLeft:
+        <TouchableOpacity onPress={() => {
+          // navigation.navigate('Discover')
+        navigation.goBack()
+        }}>
+          <Image style={{ marginLeft: 20, width: 9, height: 18 }} source={require('./src/assets/grzy-icon.png')} />
+        </TouchableOpacity>
+
+    })
+  },
   CourseList: {
     screen: CourseList,
     navigationOptions: {
@@ -176,7 +217,9 @@ const StacksOverTabs = createStackNavigator({
     navigationOptions: {
       header: null
     },
-  }
+  },
+ 
+  
 })
 const StacksOverTab = createAppContainer(StacksOverTabs)
 export default class App extends Component {

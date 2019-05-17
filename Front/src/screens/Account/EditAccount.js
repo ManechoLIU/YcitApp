@@ -142,6 +142,7 @@ export default class EditAccount extends React.Component {
     let formData = new FormData();
     StatusBar.setBarStyle("dark-content");
     try {
+      
       let photo = await API.imagePicker()
 
       let submitPhoto = {

@@ -229,7 +229,7 @@ function confirmAlert({
  * //图片单选
  */
 function imagePicker() {
-    console.log('imagePicker')
+    console.log('enter imagePicker')
     StatusBar.setBarStyle("dark-content");
     let promise = new Promise(function (resolve, reject) {
         ImageCropPicker
