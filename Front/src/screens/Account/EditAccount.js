@@ -17,13 +17,7 @@ const now = new Date(nowTimeStamp);
 
 // 编辑个人资料
 export default class EditAccount extends React.Component {
-
-  //   componentDidMount() {
-  //     this.getInfo()
-  //   }
-
   constructor(props) {
-
     super(props);
     this.state = {
       username: '',
@@ -43,94 +37,114 @@ export default class EditAccount extends React.Component {
       email: '',
       hideEmail: false,
       account: '',
-      headPic: '',
+      headImg: '',
       scrollEnable: true,
       token: ''
     }
   }
 
-  //   getInfo() {
-  //     storage.load({
-  //       key: 'userInfo',
-  //       id: '3',
-  //     }).then(ret => {
-  //       this.setState({
-  //         sex: ret.gender,
-  //         personalTag: ret.hobby,
-  //         university: ret.university,
-  //         birthday: ret.birthday === null ? new Date() : new Date(ret.birthday),
-  //         account: ret.phone,
-  //         realname: ret.name,
-  //         identityNum: ret.IDcard,
-  //       })
-  //     })
+  componentDidMount() {
+    var that = this
+    that.GetUserList()
+  }
+  async GetUserList() {
+    var that = this
+    util.get('http://192.168.43.60:5002/api/userlist', function (data) {
+      console.log(data)
+      if (data) {
+        that.setState({
+          userList: data,
+          username: data[0].username,
+          name: data[0].name,
+          sno: data[0].sno,
+          sex: data[0].sex,
+          headImg: data[0].headImg,
+          // birthday: data[0].birthday,
+          major: data[0].major,
+          classes: data[0].classes,
+          phone: data[0].phone,
+          email: data[0].email
+        })
+      } else {
+        alert('获取用户列表失败！');
+        console.log("shibai")
+      }
 
-  //     storage.load({
-  //       key: 'custom',
-  //       id: '5'
-  //     }).then(ret => {
-  //       this.setState({
-  //         username: ret.nickname,
-  //         headPic: {uri: ret.portrait}
-  //       })
-  //     })
-  //   }
+    }, function (err) {
+      alert(err);
+      console.log(err)
+      alert('服务异常,正在紧急修复,请耐心等待');
+    })
 
+  }
+  async UpdateInfo() {
+    fetch('http://192.168.43.60:5002/api/userlist/edit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: "5cde60c3a450c928f8718a0f",
+        headImg:this.state.headImg,
+        username: this.state.username,
+        name: this.state.name,
+        sno: this.state.sno,
+        sex: this.state.sex === 0 ? '女' : '男',
+        major: this.state.major === null ? '' : this.state.major,
+        classes: this.state.classes,
+        phone: this.state.phone,
+        email: this.state.email
+      })
+    })
+      .then((res) => {
+        // alert(res.status)
+       if(res.status===200){
+        this.props.navigation.navigate('Success')
+       }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
   async SaveInfo() {
-
-
     let formData = new FormData()
-    formData.append('user_id', id)
-    formData.append('head_pic', this.state.headPic.uri)
-    formData.append('gender', this.state.sex === null ? 0 : this.state.sex)
-    formData.append('hobby', this.state.personalTag === null ? '' : this.state.personalTag)
-    formData.append('birthday', this.state.birthday.getFullYear() + '-' +
-      (this.state.birthday.getMonth() + 1 < 10 ? '0' : '') +
-      (this.state.birthday.getMonth() + 1) + '-' +
-      this.state.birthday.getDate())
-    formData.append('mobile', this.state.account)
-    formData.append('real_name', this.state.realname === null ? '' : this.state.realname)
-    formData.append('id_card', this.state.identityNum === null ? '' : this.state.identityNum)
-    formData.append('university', this.state.university === null ? '' : this.state.university)
+    // formData.append('id', '5cde60c3a450c928f8718a0f')
 
-    // console.error(formData)
-
+    formData.append('username', this.state.username)
+    formData.append('name', this.state.name === null ? '' : this.state.name)
+    formData.append('sno', this.state.sno === null ? '' : this.state.sno)
+    formData.append('major', this.state.major === null ? '' : this.state.major)
+    formData.append('sex', this.state.sex === 0?'女':'男')
+    // formData.append('headImg', this.state.headImg === null ? '' : this.state.headImg)
+    // formData.append('birthday', this.state.birthday === null ? '' : this.state.birthday)
+    formData.append('major', this.state.major === null ? '' : this.state.major)
+    formData.append('classes', this.state.classes)
+    formData.append('phone', this.state.phone)
+    formData.append('email', this.state.email === null ? '' : this.state.email)
+    // var opts = {
+    //   method: "POST",
+    //   body: formData
+    // }
+    // fetch('http://192.168.43.60:5002/api/userlist/edit', opts).
+    // then((response) => {
+    //   return response.text();
+    // })
+    //   .then((responseText) => {
+    //     alert(responseText);
+    //     console.log(responseText)
+    //   })
+    //   .catch((error) => {
+    //     alert(error)
+    //   })
     try {
-      let response = await API._fetch(API.post({ url: 'Api/UserInfo/updateMyProfile', formData }))
+      let response = await API._fetch(API.post({ url: 'edit', formData }))
       let responseJson = await response.json()
 
       if (responseJson.status) {
-        this.props.navigation.navigate('Home', { refresh: true })
+        console.log(responseJson)
+        this.props.navigation.navigate('Account')
         API.toastLong('编辑成功')
-
-        // storage.save({
-        //   key: 'userInfo',
-        //   id: '3',
-        //   data: {
-        //     id: id,
-        //     university: this.state.university,
-        //     hobby: this.state.personalTag,
-        //     gender: this.state.sex,
-        //     phone: this.state.account,
-        //     name: this.state.realname,
-        //     IDcard: this.state.identityNum,
-        //     birthday: this.state.birthday,
-        //   }
-        // })
-
-        // storage.save({
-        //   key: 'custom',
-        //   id: '5',
-        //   data: {
-        //     portrait: this.state.headPic.uri,
-        //     nickname: this.state.username
-        //   }
-        // })
-
-        DeviceEventEmitter.emit('newInfo', {
-          headPic: this.state.headPic.uri,
-          nickname: this.state.username
-        })
+        alert(responseJson.status)
       }
       else {
         API.toastLong(responseJson.info)
@@ -144,43 +158,46 @@ export default class EditAccount extends React.Component {
     let formData = new FormData();
     StatusBar.setBarStyle("dark-content");
     try {
-
       let photo = await API.imagePicker()
-      console.log(pho)
-      let submitPhoto = {
-        uri: photo.path,
-        name: id + 'headpic' + new Date().getTime(),
-        type: 'multipart/form-data',
-      }
-      formData.append("file", submitPhoto);
-      let _this = this
-
-      fetch(address + 'Api/FileUpload/uploadImage', {
-        method: 'POST',
-        headers: {
-          // Accept: "application/json",
-          'Content-Type': 'multipart/form-data',
-        },
-        body: formData,
+      let that=this
+      that.setState({
+        headImg:photo.path
       })
-        .then((response) => response.text())
-        .then(async (responseData) => {
-          let path = JSON.parse(responseData).data.path
+      console.log(photo.path)
+      // let submitPhoto = {
+      //   uri: photo.path,
+      //   name: id + 'headImg' + new Date().getTime(),
+      //   type: 'multipart/form-data',
+      // }
+      // formData.append("file", submitPhoto);
+      // let _this = this
 
-          _this.setState({
-            headPic: { uri: JSON.parse(responseData).data.path },
-          })
-          DeviceEventEmitter.emit('newInfo', {
-            headPic: JSON.parse(responseData).data.path,
-            nickname: this.state.username
-          })
-          this.SaveInfo()
-          API.toastLong('上传成功')
-        })
-        .catch((error) => {
-          console.log(error)
-          API.toastLong(error)
-        });
+      // fetch(address + 'Api/FileUpload/uploadImage', {
+      //   method: 'POST',
+      //   headers: {
+      //     // Accept: "application/json",
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   body: formData,
+      // })
+      //   .then((response) => response.text())
+      //   .then(async (responseData) => {
+      //     let path = JSON.parse(responseData).data.path
+
+      //     _this.setState({
+      //       headImg: {uri: JSON.parse(responseData).data.path},
+      //     })
+      //     DeviceEventEmitter.emit('newInfo', {
+      //       headImg: JSON.parse(responseData).data.path,
+      //       nickname: this.state.username
+      //     })
+      //     this.SaveInfo()
+      //     API.toastLong('上传成功')
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //     API.toastLong(error)
+      //   });
     } catch (error) {
       console.log(error)
     }
@@ -209,7 +226,7 @@ export default class EditAccount extends React.Component {
     return (
       <ScrollView contentContainerStyle={{ height: util.height }}>
 
-        <ImageBackground style={styles.bgImage} source={this.state.headPic}>
+        <ImageBackground style={styles.bgImage} source={{ uri: this.state.headImg }}>
           <ImageBackground source={require('../../assets/me_background.png')}
             style={[styles.bgImage, { opacity: 0.9 }]}
           />
@@ -222,14 +239,14 @@ export default class EditAccount extends React.Component {
             </TouchableOpacity>
             <Text style={styles.titleText}>编辑个人资料</Text>
 
-            <TouchableOpacity onPress={() => this.SaveInfo()} style={{ position: 'absolute', right: 20, top: 15 }}>
+            <TouchableOpacity onPress={() => this.UpdateInfo()} style={{ position: 'absolute', right: 20, top: 15 }}>
               <ImageBackground source={require('../../assets/circle-button.png')} style={styles.header}>
                 <Text style={{ color: '#fff' }}>提交</Text>
               </ImageBackground>
             </TouchableOpacity>
           </ImageBackground>
           <View style={styles.infoContainer}>
-            <Image source={this.state.headPic} style={styles.userFace} />
+            <Image source={{ uri: this.state.headImg }} style={styles.userFace} />
             <TouchableOpacity style={styles.change_avatar} onPress={() => this.changeAvatar()}>
               <Image source={require('../../assets/change-avatar.png')} style={{ width: 30, height: 30 }} />
             </TouchableOpacity>

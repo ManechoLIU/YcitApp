@@ -31,7 +31,7 @@ export default class Grids extends Component {
     }
     _keyExtractor = (item, index) => index;
     _renderItem = ({ item, index }) => {
-        var num = Math.floor(Math.random() * 10);
+        var num = Math.floor(Math.random() * 10);//Math.floor() 返回小于或等于一个给定数字的最大整数
         var strss = item.fClasstime.split("~");
         var heights = (strss[1] - strss[0] + 1) * 65;
         var Dates = [];
@@ -246,7 +246,7 @@ export default class Grids extends Component {
     }
     _fetchData() {
         var self = this;
-        Util.get('http://192.168.1.110:5002/api/courselist', function (data) {
+        Util.get('http://192.168.43.60:5002/api/courselist', function (data) {
             console.log("fetchData!!!")
             console.log(data)
             if (data) {
@@ -380,7 +380,7 @@ export default class Grids extends Component {
                     Sat: Sat,
                     Sun: Sun,
                 });
-                // alert(self.state.hotTopic[0].English);
+               
             } else {
                 alert('服务异常,正在紧急修复,请耐心等待');
             }

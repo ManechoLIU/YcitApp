@@ -1,4 +1,5 @@
 var express = require('express');
+var mongoose=require('mongoose');
 var router = express.Router();
 var NewsList = require('../../models/NewsList');
 // var MongoClient = require('mongodb').MongoClient;
@@ -8,6 +9,16 @@ router.get('/', function (req, res) {
         if (err) throw  err;
         res.send(data)
     });
+});
+router.post('/getNewsById',function(req,res){
+    // var _id=mongoose.Types.ObjectId()
+    // var _id='5cdbc395eb69ceff027a4c33'
+    NewsList.find({_id:'5cdbc395eb69ceff027a4c33'},function(req,data){
+        if(err) throw err;
+        res.send(data);
+        console.log(data);
+
+    })
 });
 router.post('/add',(req,res)=>{
     var profileFileldes = {};
@@ -34,5 +45,56 @@ router.post('/add',(req,res)=>{
         msg:err,
         status:0
     }))
+});
+
+router.get('/pages',(req,res)=>{
+    // let tag = {state:1};
+    // if(req.query.tag) tag.tags = req.query.tag;
+    // if(req.query.writer) tag.writer = req.query.writer;
+    let page = parseInt(req.query.page);
+    let rows = req.query.rows;
+    let count=0;
+    let skip=0;
+    let limit = 0;
+    if(page <= 1){
+        skip =0;
+    } else {
+        skip = rows*page - rows
+    }
+    //获取所有的数据计算个数
+    NewsList.find({}).then(profile=> {
+        count = profile.length;
+    }).then(()=>{
+        //总页数 大于当前页数
+        if(Math.ceil(count/rows) >= page){
+            if(Math.ceil(count/rows) == page){
+                limit = count
+            } else {
+                limit = parseInt(rows)
+            }
+        } else {
+            return res.json({
+                data:[],
+                status:1,
+                msg:'没有数据'
+            });
+        }
+        NewsList.find({_id:'5cdbc395eb69ceff027a4c36'}).skip(skip).limit(limit).sort({date:-1}).then(profile=>{
+            if(!profile){
+                return res.json({
+                    data:[],
+                    toatl:0,
+                    page:page,
+                    status:1,
+                });
+            }
+            res.json({
+                data:profile,
+                toatl:count,
+                page:page,
+                status:2,
+            })
+        }).catch(err=>console.log(err))
+    }).catch(err=>console.log(err))
 });
 module.exports = router;

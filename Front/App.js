@@ -15,8 +15,9 @@ import AddNote from './src/screens/Course/AddNote/AddNote'
 import NewsContent from './src/screens/News/NewsContent'
 import EditAccount from './src/screens/Account/EditAccount'
 import Login from './src/screens/Login/Login'
-import Register from './src/screens/Register/Register' 
+import Register from './src/screens/Register/Register'
 import ForgetPassword from './src/screens/ForgetPassword/ForgetPassword'
+import Success from './src/screens/Account/Success'
 const CreateTab = createMaterialTopTabNavigator({
   CourseList: {
     screen: CourseList,
@@ -87,20 +88,20 @@ const Root = Platform.OS === 'android' ? {
     }
   }
 const StacksOverTabs = createStackNavigator({
- 
-  Login:{
-    screen:Login,
-    navigationOptions:{
-      header:null
+
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null
     }
   },
-   Register:{
-    screen:Register,
-    navigationOptions:{
-      header:null
+  Register: {
+    screen: Register,
+    navigationOptions: {
+      header: null
     }
   },
- 
+
   Root: Root,
   ForgetPassword: {
     screen: ForgetPassword,
@@ -120,7 +121,7 @@ const StacksOverTabs = createStackNavigator({
       headerLeft:
         <TouchableOpacity onPress={() => {
           // navigation.navigate('Discover')
-        navigation.goBack()
+          navigation.goBack()
         }}>
           <Image style={{ marginLeft: 20, width: 9, height: 18 }} source={require('./src/assets/grzy-icon.png')} />
         </TouchableOpacity>
@@ -162,7 +163,7 @@ const StacksOverTabs = createStackNavigator({
 
     })
   },
-  
+
   NewsContent: {
     screen: NewsContent,
     navigationOptions: ({ navigation }) => ({
@@ -217,9 +218,14 @@ const StacksOverTabs = createStackNavigator({
     navigationOptions: {
       header: null
     },
+
   },
- 
-  
+  Success: {
+    screen: Success,
+    navigationOptions: {
+      header: null
+    }
+  }
 })
 const StacksOverTab = createAppContainer(StacksOverTabs)
 export default class App extends Component {

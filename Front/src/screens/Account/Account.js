@@ -34,7 +34,7 @@ export default class Account extends React.Component {
   }
   async GetUserList() {
     var that = this
-    util.get('http://192.168.1.110:5002/api/userlist', function (data) {
+    util.get('http://192.168.43.60:5002/api/userlist', function (data) {
       console.log(data)
       if (data) {
         that.setState({

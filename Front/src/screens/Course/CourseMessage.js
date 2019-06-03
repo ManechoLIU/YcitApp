@@ -86,14 +86,14 @@ export default class CourseMessage extends Component {
                         style={styles.commentIcon} />
                 </View>
 
-                <TouchableOpacity style={styles.btn}
+                {/* <TouchableOpacity style={styles.btn}
                     onPress={() => {
                         // this._fetchAddData(this.props.navigation.state.params.item.fclassName);
                         this.props.navigation.navigate('Group');
 
                     }}>
                     <Text style={styles.btnText}>我要加入</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         );
     }

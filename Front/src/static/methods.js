@@ -1,7 +1,7 @@
 import { Dimensions, StatusBar, Platform, BackHandler, Alert } from 'react-native'
 import ImageCropPicker from "react-native-image-crop-picker";
 import Toast from 'react-native-root-toast';
-const address = 'http://appback.futuredigitalplanets.com/index.php/'
+const address = 'http://192.168.43.60:5002/api/userlist/'
 // const address = 'http://star.lnkj1.com/'
 const { width, height, scale } = Dimensions.get('window')
 

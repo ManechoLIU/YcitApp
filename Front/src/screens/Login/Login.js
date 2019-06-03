@@ -30,7 +30,7 @@ export default class Login extends React.Component {
               <TextInput style={[styles.title, { paddingBottom: 13 }]}
                 maxLength={11}
                 keyboardType={'phone-pad'}
-                placeholder='请输入手机号'
+                placeholder='请输入学号'
                 value={this.state.mobile}
                 onChangeText={(text) => /^[0-9]*$/.test(text)
                   ? this.setState({ mobile: text })
@@ -63,18 +63,18 @@ export default class Login extends React.Component {
             </TouchableOpacity>
           </View>
 
-          {this.state.wechatIconVisible ?
+          {/* {this.state.wechatIconVisible ?
             <View>
               <View style={styles.lineBox}>
                 <View style={styles.line} />
                 <View style={styles.textBox}>
                   <Text style={styles.loginText}>使用第三方登录</Text>
                 </View>
-              </View>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('WeChat')} style={styles.shareBox}>
-                <Image style={styles.shareIcon} source={require('../../assets/dl-icon-wx.png')} />
+              </View> */}
+              {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('WeChat')} style={styles.shareBox}>
+                <Image style={styles.shareIcon} source={require('../../assets/dl-icon-wx.png')} /> */}
                 {/*<Image style={styles.shareIcon} source={require('../../assets/dl-icon-qq.png')}/>*/}
-              </TouchableOpacity></View> : null}
+              {/* </TouchableOpacity></View> : null} */}
         </ImageBackground>
 
 

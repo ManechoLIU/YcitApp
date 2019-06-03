@@ -11,8 +11,8 @@ var userlist = require('./routes/api/userlist');
 var db = require('./config/db.js').mongoUrl;
 
 //使用body-parser中间件
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1000000 }));
 
@@ -25,7 +25,12 @@ mongoose.connect(db, { useNewUrlParser: true }).then(() => {
 }).catch(err => {
     console.log(err)
 });
-
+app.all('*',function(req,res,next){  
+    let origin=req.headers.origin;
+      res.setHeader('Access-Control-Allow-Origin',"*");
+      res.setHeader('Access-Control-Allow-Headers','Content-Type');
+       next();
+   })
 app.use('/api/newslist', newslist);
 app.use('/api/courselist', courselist);
 app.use('/api/gradelist', gradelist);
