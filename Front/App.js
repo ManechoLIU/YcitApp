@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, Text,AsyncStorage, View, Image, TouchableOpacity } from 'react-native';
 import {
   createStackNavigator,
   createAppContainer,
   createMaterialTopTabNavigator,
   createBottomTabNavigator
 } from 'react-navigation'
+import Storage from "react-native-storage"
 import GradeList from './src/screens/Grade/GradeList'
 import CourseList from './src/screens/Course/CourseList'
 import NewsList from './src/screens/News/NewsList'
@@ -228,6 +229,13 @@ const StacksOverTabs = createStackNavigator({
   }
 })
 const StacksOverTab = createAppContainer(StacksOverTabs)
+global.storage = new Storage({
+  size: 1000, //最大容量
+  storageBackend: AsyncStorage, //存储引擎
+  defaultExpires: 1000 * 3600 * 24 * 30, //缓存时间
+  // enableCache: true // 读写时在内存中缓存数据。默认启用。
+})
+
 export default class App extends Component {
   render() {
     return (

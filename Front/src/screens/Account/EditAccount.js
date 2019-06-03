@@ -54,16 +54,16 @@ export default class EditAccount extends React.Component {
       if (data) {
         that.setState({
           userList: data,
-          username: data[0].username,
-          name: data[0].name,
-          sno: data[0].sno,
-          sex: data[0].sex,
-          headImg: data[0].headImg,
-          // birthday: data[0].birthday,
-          major: data[0].major,
-          classes: data[0].classes,
-          phone: data[0].phone,
-          email: data[0].email
+          username: data[2].username,
+          name: data[2].name,
+          sno: data[2].sno,
+          sex: data[2].sex,
+          headImg: data[2].headImg,
+          // birthday: data[2].birthday,
+          major: data[2].major,
+          classes: data[2].classes,
+          phone: data[2].phone,
+          email: data[2].email
         })
       } else {
         alert('获取用户列表失败！');
@@ -84,7 +84,7 @@ export default class EditAccount extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: "5cde60c3a450c928f8718a0f",
+        id: "5ce011c465a9428c7fbff198",
         headImg:this.state.headImg,
         username: this.state.username,
         name: this.state.name,

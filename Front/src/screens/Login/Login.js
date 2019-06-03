@@ -10,12 +10,54 @@ export default class Login extends React.Component {
   constructor() {
     super()
     this.state = {
-      mobile: '',
-      password: '',
+      sno: '',
+      pwd: '',
       wechatIconVisible: true,
     }
   }
+  async Login() {
+    fetch('http://192.168.43.60:5002/api/userlist/find', {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        // id: "5ce011c465a9428c7fbff198",
+        sno: this.state.sno,
+        pwd: this.state.pwd
+      })
+    })
+      .then((response) => response.json())
+      .then((res) => {
 
+        console.log(res)
+
+        if (res.status === 2) {
+          // let data={
+          //   sno: this.state.sno,
+          //   pwd: this.state.pwd
+          // }
+          console.log("9999")
+
+          if (res.data.sno == this.state.sno && res.data.pwd == this.state.pwd) {
+            console.log("111111110")
+            this.props.navigation.navigate('Root')
+          } else {
+           
+            API.toastLong('学号或密码输入错误')
+          }
+
+        }else if(res.status === 1){
+          API.toastLong('学号或密码输入错误')
+        }else{
+          API.toastLong('学号或密码输入错误')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
   render() {
     return (
       <View style={styles.me}>
@@ -31,23 +73,23 @@ export default class Login extends React.Component {
                 maxLength={11}
                 keyboardType={'phone-pad'}
                 placeholder='请输入学号'
-                value={this.state.mobile}
+                value={this.state.sno}
                 onChangeText={(text) => /^[0-9]*$/.test(text)
-                  ? this.setState({ mobile: text })
+                  ? this.setState({ sno: text })
                   : ''}
               />
             </View>
             <View style={styles.contentItem}>
               <TextInput style={[styles.title, { paddingBottom: 13 }]}
                 placeholder='请输入密码'
-                value={this.state.password}
+                value={this.state.pwd}
                 secureTextEntry={true}
-                onChangeText={(text) => this.setState({ password: text })}
+                onChangeText={(text) => this.setState({ pwd: text })}
               />
             </View>
           </View>
 
-          <Button containerStyle={styles.button} onPress={() => this.props.navigation.navigate('Root')}>
+          <Button containerStyle={styles.button} onPress={() => this.Login()}>
             <Text style={styles.login}> 登录</Text>
           </Button>
           <View style={styles.textBar}>
@@ -71,10 +113,10 @@ export default class Login extends React.Component {
                   <Text style={styles.loginText}>使用第三方登录</Text>
                 </View>
               </View> */}
-              {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('WeChat')} style={styles.shareBox}>
+          {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('WeChat')} style={styles.shareBox}>
                 <Image style={styles.shareIcon} source={require('../../assets/dl-icon-wx.png')} /> */}
-                {/*<Image style={styles.shareIcon} source={require('../../assets/dl-icon-qq.png')}/>*/}
-              {/* </TouchableOpacity></View> : null} */}
+          {/*<Image style={styles.shareIcon} source={require('../../assets/dl-icon-qq.png')}/>*/}
+          {/* </TouchableOpacity></View> : null} */}
         </ImageBackground>
 
 

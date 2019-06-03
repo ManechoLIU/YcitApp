@@ -9,6 +9,33 @@ router.get('/', function (req, res) {
         res.send(data)
     });
 });
+router.post('/find',(req,res)=>{
+    // const id = req.body.id;
+    const sno=req.body.sno;
+    const pwd=req.body.pwd;
+    console.log(sno)
+    //查询数据库
+    UserList.findOne({sno:sno,pwd:pwd}).then(user=>{
+       
+        console.log(user._id)
+        if(!user){
+            return res.json({
+                status:1,   //请求失败
+                msg:'该用户不存在'
+            });
+        } else {
+            
+           let response=res.json({
+                data:user,
+                status:2
+            })
+            res.send(response)
+        }
+    }).catch(err=>res.status(404).json({
+        msg:err,
+        status:1
+    }))
+});
 router.post('/add',(req,res)=>{
     var profileFileldes = {};
     if(req.body.username) profileFileldes.username = req.body.username;
