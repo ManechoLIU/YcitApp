@@ -14,9 +14,45 @@ export default class GradeList extends React.Component {
       gradeList: [],
     }
   }
+  // componentDidMount() {
+  //   var that = this
+  //   that.GetUserList(id)
+  // }
+  // async GetUserList(id) {
+  //   var that = this
+  //   util.get(`http://192.168.43.60:5002/api/userlist/${id}`, function (data) {
+  //     console.log(data.data)
+  //     console.log(data.data.gradelist)
+  //     if (data) {
+  //       that.setState({
+  //         gradelist: data.data.gradelist,
+  //       })
+  //     } else {
+  //       alert('获取用户列表失败！');
+  //       console.log("shibai")
+  //     }
+
+  //   }, function (err) {
+  //     alert(err);
+  //     console.log(err)
+  //     alert('服务异常,正在紧急修复,请耐心等待');
+  //   })
+
+  // }
   componentDidMount() {
     var that = this
-    that.GetArticleList()
+    // that.GetArticleList()
+    that.GetGradeList()
+  }
+  async GetGradeList() {
+    storage.load({
+      key: 'userlist',
+      id: '1'
+    }).then(res => {
+      this.setState({
+        gradeList: res.gradelist
+      })
+    })
   }
   async GetArticleList() {
     var that = this
@@ -39,85 +75,85 @@ export default class GradeList extends React.Component {
     })
 
   }
- 
 
-_onTopRefresh = () => {
-  this.GetArticleList()
-}
-_onEndReached = () => {
-  if (!this.onEndReachedCallDuringMomentum) {
-    this.GetArticleList();
-    this.onEndReachedCallDuringMomentum = true
+
+  _onTopRefresh = () => {
+    this.GetArticleList()
   }
+  _onEndReached = () => {
+    if (!this.onEndReachedCallDuringMomentum) {
+      this.GetArticleList();
+      this.onEndReachedCallDuringMomentum = true
+    }
 
-}
-createEmptyView() {
-  return (
-    <View>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent')} >
+  }
+  createEmptyView() {
+    return (
+      <View>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent')} >
+          <View style={styles.contentItem}>
+            <Text style={styles.title}>操作系统</Text>
+            <Text style={styles.content}>67.0</Text>
+          </View>
+        </TouchableOpacity>
+
+      </View>
+
+    );
+  }
+  itemClick() {
+    this.props.navigation.navigate('GradeContent')
+  }
+  renderItem = (item, index) => {
+    return (
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('GradeContent')} >
         <View style={styles.contentItem}>
-          <Text style={styles.title}>操作系统</Text>
-          <Text style={styles.content}>67.0</Text>
+          <Text style={styles.title}>{item.course}</Text>
+          <Text style={styles.content}>{item.mark}</Text>
         </View>
       </TouchableOpacity>
 
-    </View>
+    )
+  }
 
-  );
-}
-itemClick() {
-  this.props.navigation.navigate('GradeContent')
-}
-renderItem = (item, index) => {
-  return (
-    <TouchableOpacity onPress={() => this.props.navigation.navigate('GradeContent')} >
-      <View style={styles.contentItem}>
-        <Text style={styles.title}>{item.course}</Text>
-        <Text style={styles.content}>{item.mark}</Text>
-      </View>
-    </TouchableOpacity>
+  render() {
+    return (
+      <View style={styles.me}>
+        <ImageBackground source={require('../../assets/me_background.png')}
+          style={[styles.bgImage, { opacity: 0.9 }]} />
+        <View style={{ position: 'absolute', top: Platform.OS === 'android' ? 0 : 20 }}>
+          <View style={styles.meTop}>
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.goBack()
+            }}>
+              <Image style={styles.back} source={require('../../assets/grzy-icon.png')} />
+            </TouchableOpacity>
+            <Text style={styles.topTitle}>成绩查询</Text>
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.navigate('Account')
+            }}>
+              <Image style={styles.headerImage} source={{ uri: headImg }} />
+            </TouchableOpacity>
+          </View>
 
-  )
-}
-
-render() {
-  return (
-    <View style={styles.me}>
-      <ImageBackground source={require('../../assets/me_background.png')}
-        style={[styles.bgImage, { opacity: 0.9 }]} />
-      <View style={{ position: 'absolute', top: Platform.OS === 'android' ? 0 : 20 }}>
-        <View style={styles.meTop}>
-          <TouchableOpacity onPress={() => {
-            this.props.navigation.goBack()
-          }}>
-            <Image style={styles.back} source={require('../../assets/grzy-icon.png')} />
-          </TouchableOpacity>
-          <Text style={styles.topTitle}>成绩查询</Text>
-          <TouchableOpacity onPress={() => {
-            this.props.navigation.navigate('Account')
-          }}>
-            <Image style={styles.headerImage} source={{uri:headImg}} />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.contentBar}>
-          <ScrollView>
-            <View style={styles.filed}>
-              <Text style={styles.course}>课程名称</Text>
-              <Text style={styles.grade}>成绩</Text>
-            </View>
-            <FlatList
-              data={this.state.gradeList}
-              // onBeginRefresh={this._onTopRefresh}
-              onEndReached={this._onEndReached}
-              onEndReachedThreshold={0.2}
-              onMomentumScrollBegin={() => {
-                this.onEndReachedCallDuringMomentum = false
-              }}
-              ListEmptyComponent={this.createEmptyView()}
-              renderItem={({ item, index }) => this.renderItem(item, index)}
-              contentContainerStyle={styles.flatList} />
-            {/* <View style={styles.contentItem}>
+          <View style={styles.contentBar}>
+            <ScrollView>
+              <View style={styles.filed}>
+                <Text style={styles.course}>课程名称</Text>
+                <Text style={styles.grade}>成绩</Text>
+              </View>
+              <FlatList
+                data={this.state.gradeList}
+                // onBeginRefresh={this._onTopRefresh}
+                onEndReached={this._onEndReached}
+                onEndReachedThreshold={0.2}
+                onMomentumScrollBegin={() => {
+                  this.onEndReachedCallDuringMomentum = false
+                }}
+                ListEmptyComponent={this.createEmptyView()}
+                renderItem={({ item, index }) => this.renderItem(item, index)}
+                contentContainerStyle={styles.flatList} />
+              {/* <View style={styles.contentItem}>
                 <Text style={styles.title}>操作系统</Text>
                 <Text style={styles.content}>{this.state.university ? this.state.university : '67.0'}</Text>
               </View>
@@ -166,18 +202,18 @@ render() {
 
               </View> */}
 
-          </ScrollView>
+            </ScrollView>
+
+          </View>
 
         </View>
+
 
       </View>
 
 
-    </View>
-
-
-  )
-}
+    )
+  }
 }
 
 const styles = StyleSheet.create({

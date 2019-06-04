@@ -32,32 +32,37 @@ export default class Login extends React.Component {
     })
       .then((response) => response.json())
       .then((res) => {
-
         console.log(res)
-
+        console.log(res.data)
+        console.log(res.data.gradelist)
         if (res.status === 2) {
-          // let data={
-          //   sno: this.state.sno,
-          //   pwd: this.state.pwd
-          // }
-          // console.log("9999")
-
           if (res.data.sno == this.state.sno && res.data.pwd == this.state.pwd) {
             console.log(res.data.sno)
-            // DeviceEventEmitter.emit('_id',  res.data._id);
-            // DeviceEventEmitter.emit('_id', (event) => {
-            //   this.setState({
-            //     _id: AsyncStorage.setItem('_id', res.data._id),
-            //   })
-            // })
+
             AsyncStorage.setItem('id', res.data._id)
             global.id = res.data._id,
-            global.headImg = res.data.headImg,
-            console.log("===" + id)
-            // AsyncStorage.getItem('_id', (err, res) => {
-            //   _id = res
-            // })
-            // console.log("login_id:" + _id)
+              global.headImg = res.data.headImg,
+              global.gradelist = res.data.gradelist,
+              
+            storage.save({
+              key: 'userlist',
+              id: '1',
+              data: {
+                username: res.data.username,
+                name: res.data.name,
+                sno: res.data.sno,
+                sex: res.data.sex,
+                headImg: res.data.headImg,
+                birthday: res.data.birthday,
+                major: res.data.major,
+                classes: res.data.classes,
+                phone: res.data.phone,
+                email: res.data.email,
+                gradelist: res.data.gradelist
+              }
+
+            })
+            console.log(res.data.gradelist)
             this.props.navigation.navigate('Root')
           } else {
 

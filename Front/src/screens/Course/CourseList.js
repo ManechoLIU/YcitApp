@@ -11,6 +11,7 @@ import {
     Modal,
     Image,
     View,
+    ImageBackground
     // PixelRatio,
 } from 'react-native';
 import Dimensions from 'Dimensions';

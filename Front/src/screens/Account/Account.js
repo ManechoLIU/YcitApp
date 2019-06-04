@@ -34,13 +34,6 @@ export default class Account extends React.Component {
   }
 
   componentDidMount() {
-    // console.log("Accounnt_id:" + _id)
-  //  DeviceEventEmitter.addListener('_id', (_id) => {
-  //     // 收到监听后想做的事情 // 监听
-  //     this.setState({ _id: _id });
-  //   })
-  //   console.log("Accounnt_id:" + _id)
-
     var that = this
     that.GetUserList(id)
   }
