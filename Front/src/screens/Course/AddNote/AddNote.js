@@ -25,12 +25,23 @@ export default class AddNote extends Component {
         super(props);
         this.state = {
             // title: this.props.navigation.state.params.Title,
-            title:'',
+            title: '',
             tip: '',
             content: '',
             img: '',
+            testImage: '',
+            imgIcon:require('../../../assets/bj-tj.png')
+            
         }
     }
+    _setImage(testImage) {
+        this.setState({
+            testImage: testImage
+        })
+        console.log("testImage:"+testImage)
+        console.warn(testImage)   
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -49,23 +60,7 @@ export default class AddNote extends Component {
                 </View>
                 <ScrollView>
                     <View>
-                        {/* <View style={styles.wrap}>
-                            {
-                                this.state.title == '' ? <TextInput
-                                    placeholder='请输入科目名'
-                                    underlineColorAndroid='transparent'
-                                    keyboardType='default'
-                                    style={styles.content1}
-                                    onChangeText={(text) => {
-                                        this.setState({
-                                            title: text
-                                        });
-                                    }}>
-                                    {this.state.title}
-                                </TextInput> : <Text style={[styles.content1, {paddingTop:10}]}>{this.state.title}</Text>
-                            }
 
-                        </View> */}
                         <View style={styles.wrap}>
                             <TextInput
                                 placeholder='请输入标题'
@@ -93,8 +88,9 @@ export default class AddNote extends Component {
                                     });
                                 }}
                             >{this.state.content}</TextInput>
+                            <Image source={{uri:this.state.testImage}} style={styles.testImage}/>
                         </View>
-                        <Photo />
+                        <Photo _setImage = {this._setImage.bind(this)}/>
                         <View style={styles.btn}>
                             <Text style={styles.btnText} onPress={() => {
                                 // this._fetchData(this.state.title, this.state.tip, this.state.content, this.state.img);
@@ -106,27 +102,27 @@ export default class AddNote extends Component {
             </View>
         );
     }
-//     _fetchData(title, tip, content, img) {
-//         var self = this;
-//         url = 'http://localhost:8081/json/NewNoteData.json&Title=' + title + '&Tip=' + tip + '&Content=' + content + '&img=' + img;
-//         Util.get(url, function (data) {
-//             if (data.status) {
-//                 let obj = data.info;
-//                 self.setState({
-//                     obj: obj,
-//                 });
+    // _fetchData(title, tip, content, img) {
+    //     var self = this;
+    //     url = 'http://localhost:8081/json/NewNoteData.json&Title=' + title + '&Tip=' + tip + '&Content=' + content + '&img=' + img;
+    //     Util.get(url, function (data) {
+    //         if (data.status) {
+    //             let obj = data.info;
+    //             self.setState({
+    //                 obj: obj,
+    //             });
 
-//                 self.props.navigation.state.params.onCallBack(self.state.obj);
-//             } else {
-//                 alert('服务异常,正在紧急修复,请耐心等待');
-//             }
+    //             self.props.navigation.state.params.onCallBack(self.state.obj);
+    //         } else {
+    //             alert('服务异常,正在紧急修复,请耐心等待');
+    //         }
 
-//         }, function (err) {
-//             alert(err);
-//             alert('服务异常,正在紧急修复,请耐心等待10');
-//         });
+    //     }, function (err) {
+    //         alert(err);
+    //         alert('服务异常,正在紧急修复,请耐心等待10');
+    //     });
 
-//     } 
+    // } 
 }
 const styles = StyleSheet.create({
     container: {
@@ -154,7 +150,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 12,
-        width:40,
+        width: 40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -211,13 +207,19 @@ const styles = StyleSheet.create({
         marginLeft: width * 0.05,
         backgroundColor: '#fff',
     },
-    inputContent:{
+    inputContent: {
         marginTop: 15,
         width: width * 0.9,
         marginLeft: width * 0.05,
-        height:300,
+        height: 300,
         backgroundColor: '#fff',
 
+    },
+    testImage:{
+        marginTop:15,
+        marginLeft: width * 0.05-8,
+        width:150,
+        height:150
     },
     btn: {
         marginTop: 10,
