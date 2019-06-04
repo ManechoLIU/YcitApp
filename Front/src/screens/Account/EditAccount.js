@@ -14,7 +14,10 @@ const address = 'http://appback.futuredigitalplanets.com/index.php/'
 const nowTimeStamp = Date.now();
 const now = new Date(nowTimeStamp);
 
-
+let _id = ''
+AsyncStorage.getItem('_id', (err, res) => {
+  _id = res
+})
 // 编辑个人资料
 export default class EditAccount extends React.Component {
   constructor(props) {
@@ -45,25 +48,25 @@ export default class EditAccount extends React.Component {
 
   componentDidMount() {
     var that = this
-    that.GetUserList()
+    that.GetUserList(_id)
   }
-  async GetUserList() {
+  async GetUserList(_id) {
     var that = this
-    util.get('http://192.168.43.60:5002/api/userlist', function (data) {
-      console.log(data)
+    util.get(`http://192.168.43.60:5002/api/userlist/${_id}`, function (data) {
+      console.log(data.data)
       if (data) {
         that.setState({
-          userList: data,
-          username: data[2].username,
-          name: data[2].name,
-          sno: data[2].sno,
-          sex: data[2].sex,
-          headImg: data[2].headImg,
-          // birthday: data[2].birthday,
-          major: data[2].major,
-          classes: data[2].classes,
-          phone: data[2].phone,
-          email: data[2].email
+          userList: data.data,
+          username: data.data.username,
+          name: data.data.name,
+          sno: data.data.sno,
+          sex: data.data.sex,
+          headImg: data.data.headImg,
+          // birthday: data.data.birthday,
+          major: data.data.major,
+          classes: data.data.classes,
+          phone: data.data.phone,
+          email: data.data.email
         })
       } else {
         alert('获取用户列表失败！');

@@ -3,12 +3,30 @@ var router = express.Router();
 var UserList = require('../../models/UserList');
 // var MongoClient = require('mongodb').MongoClient;
 
-router.get('/', function (req, res) {
-    UserList.find({}, function (err, data) {
-        if (err) throw  err;
-        res.send(data)
-    });
+router.get('/:id',(req,res)=>{
+    console.log("req:"+req.body)
+    const id=req.params.id
+    console.log("id:===="+id)
+    UserList.findOne({_id:id}).then(profile=>{
+        if(!profile){
+            return res.json({
+                msg:'没有内容',
+                status:1
+            });
+        }
+        res.json({
+            data:profile,
+            status:2
+        })
+    }).catch(err =>{
+        console.log(err)
+        res.status(404).json({
+            msg:'获取失败',
+            status:0
+        })
+    } )
 });
+
 router.post('/find',(req,res)=>{
     // const id = req.body.id;
     const sno=req.body.sno;

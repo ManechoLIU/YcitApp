@@ -7,8 +7,10 @@ import {
 import util from "../../static/util"
 import API from '../../static/methods'
 
-
-
+let _id = ''
+AsyncStorage.getItem('_id', (err, res) => {
+  _id = res
+})
 // 我的
 export default class Account extends React.Component {
 
@@ -25,30 +27,40 @@ export default class Account extends React.Component {
       major: '',
       classes: '',
       phone: '',
-      email: ''
+      email: '',
+      // _id:''
+
     }
   }
+
   componentDidMount() {
+    // console.log("Accounnt_id:" + _id)
+  //  DeviceEventEmitter.addListener('_id', (_id) => {
+  //     // 收到监听后想做的事情 // 监听
+  //     this.setState({ _id: _id });
+  //   })
+  //   console.log("Accounnt_id:" + _id)
+
     var that = this
-    that.GetUserList()
+    that.GetUserList(_id)
   }
-  async GetUserList() {
+  async GetUserList(_id) {
     var that = this
-    util.get('http://192.168.43.60:5002/api/userlist', function (data) {
-      console.log(data)
+    util.get(`http://192.168.43.60:5002/api/userlist/${_id}`, function (data) {
+      console.log(data.data)
       if (data) {
         that.setState({
-          userList: data,
-          username: data[2].username,
-          name: data[2].name,
-          sno: data[2].sno,
-          sex: data[2].sex,
-          headImg: data[2].headImg,
-          birthday: data[2].birthday,
-          major: data[2].major,
-          classes: data[2].classes,
-          phone: data[2].phone,
-          email: data[2].email
+          userList: data.data,
+          username: data.data.username,
+          name: data.data.name,
+          sno: data.data.sno,
+          sex: data.data.sex,
+          headImg: data.data.headImg,
+          birthday: data.data.birthday,
+          major: data.data.major,
+          classes: data.data.classes,
+          phone: data.data.phone,
+          email: data.data.email
         })
       } else {
         alert('获取用户列表失败！');
@@ -62,8 +74,6 @@ export default class Account extends React.Component {
     })
 
   }
-
-
 
   render() {
     return (

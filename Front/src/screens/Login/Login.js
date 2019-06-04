@@ -6,12 +6,14 @@ import {
 import util from "../../static/util"
 import Button from 'react-native-button'
 import API from '../../static/methods'
+
 export default class Login extends React.Component {
   constructor() {
     super()
     this.state = {
       sno: '',
       pwd: '',
+      _id:'',
       wechatIconVisible: true,
     }
   }
@@ -38,19 +40,30 @@ export default class Login extends React.Component {
           //   sno: this.state.sno,
           //   pwd: this.state.pwd
           // }
-          console.log("9999")
+          // console.log("9999")
 
           if (res.data.sno == this.state.sno && res.data.pwd == this.state.pwd) {
-            console.log("111111110")
+            console.log(res.data.sno)
+            // DeviceEventEmitter.emit('_id',  res.data._id);
+            // DeviceEventEmitter.emit('_id', (event) => {
+            //   this.setState({
+            //     _id: AsyncStorage.setItem('_id', res.data._id),
+            //   })
+            // })
+            AsyncStorage.setItem('_id', res.data._id)
+            // AsyncStorage.getItem('_id', (err, res) => {
+            //   _id = res
+            // })
+            // console.log("login_id:" + _id)
             this.props.navigation.navigate('Root')
           } else {
-           
+
             API.toastLong('学号或密码输入错误')
           }
 
-        }else if(res.status === 1){
+        } else if (res.status === 1) {
           API.toastLong('学号或密码输入错误')
-        }else{
+        } else {
           API.toastLong('学号或密码输入错误')
         }
       })
