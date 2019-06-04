@@ -7,10 +7,10 @@ import {
 import util from "../../static/util"
 import API from '../../static/methods'
 
-let _id = ''
-AsyncStorage.getItem('_id', (err, res) => {
-  _id = res
-})
+// let _id = ''
+// AsyncStorage.getItem('_id', (err, res) => {
+//   _id = res
+// })
 // 我的
 export default class Account extends React.Component {
 
@@ -42,11 +42,11 @@ export default class Account extends React.Component {
   //   console.log("Accounnt_id:" + _id)
 
     var that = this
-    that.GetUserList(_id)
+    that.GetUserList(id)
   }
-  async GetUserList(_id) {
+  async GetUserList(id) {
     var that = this
-    util.get(`http://192.168.43.60:5002/api/userlist/${_id}`, function (data) {
+    util.get(`http://192.168.43.60:5002/api/userlist/${id}`, function (data) {
       console.log(data.data)
       if (data) {
         that.setState({

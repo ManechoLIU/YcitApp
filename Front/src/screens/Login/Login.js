@@ -50,7 +50,9 @@ export default class Login extends React.Component {
             //     _id: AsyncStorage.setItem('_id', res.data._id),
             //   })
             // })
-            AsyncStorage.setItem('_id', res.data._id)
+            AsyncStorage.setItem('id', res.data._id)
+            global.id = res.data._id
+            console.log("==="+id)
             // AsyncStorage.getItem('_id', (err, res) => {
             //   _id = res
             // })

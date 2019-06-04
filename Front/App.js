@@ -265,7 +265,7 @@ global.storage = new Storage({
   size: 1000, //最大容量
   storageBackend: AsyncStorage, //存储引擎
   defaultExpires: 1000 * 3600 * 24 * 30, //缓存时间
-  // enableCache: true // 读写时在内存中缓存数据。默认启用。
+  enableCache: true // 读写时在内存中缓存数据。默认启用。
 })
 
 export default class App extends Component {

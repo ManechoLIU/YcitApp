@@ -14,10 +14,10 @@ const address = 'http://appback.futuredigitalplanets.com/index.php/'
 const nowTimeStamp = Date.now();
 const now = new Date(nowTimeStamp);
 
-let _id = ''
-AsyncStorage.getItem('_id', (err, res) => {
-  _id = res
-})
+// let _id = ''
+// AsyncStorage.getItem('_id', (err, res) => {
+//   _id = res
+// })
 // 编辑个人资料
 export default class EditAccount extends React.Component {
   constructor(props) {
@@ -48,11 +48,11 @@ export default class EditAccount extends React.Component {
 
   componentDidMount() {
     var that = this
-    that.GetUserList(_id)
+    that.GetUserList(id)
   }
-  async GetUserList(_id) {
+  async GetUserList(id) {
     var that = this
-    util.get(`http://192.168.43.60:5002/api/userlist/${_id}`, function (data) {
+    util.get(`http://192.168.43.60:5002/api/userlist/${id}`, function (data) {
       console.log(data.data)
       if (data) {
         that.setState({
@@ -87,7 +87,7 @@ export default class EditAccount extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: "5ce011c465a9428c7fbff198",
+        id: id,
         headImg:this.state.headImg,
         username: this.state.username,
         name: this.state.name,
