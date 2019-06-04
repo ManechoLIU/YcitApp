@@ -25,7 +25,7 @@ export default class NewsList extends React.Component {
         Util.get('http://192.168.43.60:5002/api/newslist', function (data) {
             console.log(data)
             if (data) {
-                console.log(data)
+                console.log(data[0]._id)
                 that.setState({
                     articleList: data
                 })
@@ -79,7 +79,7 @@ export default class NewsList extends React.Component {
     renderItem = (item, index) => {
         return (
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent')} >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('NewsContent',{ _id: item._id })} >
                 <View style={styles.box}>
                     <View style={styles.dateImage}>
                         <Image style={styles.articleImage} source={{ uri: item.icon }} />

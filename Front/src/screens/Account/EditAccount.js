@@ -97,6 +97,7 @@ export default class EditAccount extends React.Component {
       })
     })
       .then((res) => {
+        console.log(res)
         // alert(res.status)
        if(res.status===200){
         this.props.navigation.navigate('Success')

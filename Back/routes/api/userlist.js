@@ -18,6 +18,7 @@ router.post('/find',(req,res)=>{
     UserList.findOne({sno:sno,pwd:pwd}).then(user=>{
        
         console.log(user._id)
+        console.log("user:__" + user)
         if(!user){
             return res.json({
                 status:1,   //请求失败
