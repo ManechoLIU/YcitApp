@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text,AsyncStorage, View, Image, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, Text, AsyncStorage, View, Image, TouchableOpacity } from 'react-native';
 import {
   createStackNavigator,
   createAppContainer,
@@ -19,6 +19,8 @@ import Login from './src/screens/Login/Login'
 import Register from './src/screens/Register/Register'
 import ForgetPassword from './src/screens/ForgetPassword/ForgetPassword'
 import Success from './src/screens/Account/Success'
+import NoteList from './src/screens/Note/NoteList'
+import NoteContent from './src/screens/Note/NoteContent'
 const CreateTab = createMaterialTopTabNavigator({
   CourseList: {
     screen: CourseList,
@@ -226,7 +228,37 @@ const StacksOverTabs = createStackNavigator({
     navigationOptions: {
       header: null
     }
-  }
+  },
+  NoteList: {
+    screen: NoteList,
+    navigationOptions: {
+      header: null
+    }
+  },
+  NoteContent: {
+    screen: NoteContent,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: '便签详情',
+      headerStyle: {
+        //标题栏样式
+        backgroundColor: '#FFFFF',
+      },
+      headerTintColor: '#453E3E',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+      },
+      headerLeft:
+        <TouchableOpacity onPress={() => {
+          navigation.goBack()
+        }}>
+          <Image style={{ marginLeft: 15, width: 9, height: 18 }} source={require('./src/assets/bj-icon-fh.png')} />
+        </TouchableOpacity>
+
+    }),
+  },
+
 })
 const StacksOverTab = createAppContainer(StacksOverTabs)
 global.storage = new Storage({

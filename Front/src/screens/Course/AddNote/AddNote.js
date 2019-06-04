@@ -118,7 +118,7 @@ export default class AddNote extends Component {
                 console.log(res)
                 // alert(res.status)
                 if (res.status === 200) {
-                    this.props.navigation.navigate('Success')
+                    this.props.navigation.navigate('NoteList')
                 }
             })
             .catch((error) => {

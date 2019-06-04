@@ -9,6 +9,34 @@ router.get('/', function (req, res) {
         res.send(data)
     });
 });
+
+router.get('/item/:id',(req,res)=>{
+    console.log("req:"+req.body)
+    const id=req.params.id
+    console.log("id:===="+id)
+    
+    
+    NoteList.findOne({_id:id}).then(profile=>{
+        if(!profile){
+            return res.json({
+                msg:'没有内容',
+                status:1
+            });
+        }
+        res.json({
+            data:profile,
+            status:2
+        })
+    }).catch(err =>{
+        console.log(err)
+        res.status(404).json({
+        
+            msg:'获取失败',
+            status:0
+        })
+    } )
+});
+
 router.post('/add',(req,res)=>{
     var profileFileldes = {};
     if(req.body.title) profileFileldes.title = req.body.title;

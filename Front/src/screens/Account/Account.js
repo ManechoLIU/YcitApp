@@ -144,11 +144,11 @@ export default class Account extends React.Component {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('Comment')
+                this.props.navigation.navigate('NoteList')
               }}>
                 <View style={styles.iconItem}>
                   <Image style={styles.icons} source={require('../../assets/wd-icon-ly.png')} />
-                  <Text style={styles.icontext}>评论</Text>
+                  <Text style={styles.icontext}>便签</Text>
                 </View>
               </TouchableOpacity>
             </View>

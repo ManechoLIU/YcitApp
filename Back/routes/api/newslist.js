@@ -37,31 +37,6 @@ router.get('/item/:id',(req,res)=>{
     } )
 });
 
-router.post('/item', function (req, res) {
-    const id = req.body._id
-    console.log("id:"+id)
-    NewsList.findByIdAndUpdate({ _id: id }).then(news => {
-       
-        // res.send(response)
-        console.log("news:__" + news)
-        if (!news) {
-            return res.json({
-                status: 1,   //请求失败
-                msg: '新闻不存在'
-            });
-        } else {
-            let response = res.json({
-                data: news,
-                status: 2
-            })
-            res.send(response)
-        }
-    })
-    .catch(err => res.status(404).json({
-        msg: err,
-        status: 1
-    }))
-});
 
 router.get('/getNewsById', function (req, res) {
     // var _id=mongoose.Types.ObjectId()
