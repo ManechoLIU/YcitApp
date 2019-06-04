@@ -26,6 +26,7 @@ export default class Grids extends Component {
             Fri: this.props.Fri,
             Sat: this.props.Sat,
             Sun: this.props.Sun,
+            courseList:[]
         };
 
     }
@@ -241,9 +242,151 @@ export default class Grids extends Component {
         );
     }
     componentDidMount() {
-        this._fetchData();
+        // this._fetchData();
+        this.GetCourseList()
 
     }
+    async GetCourseList() {
+        storage.load({
+          key: 'userlist',
+          id: '1'
+        }).then(data => {
+            var self = this;
+            let obj = data.courselist;
+            let Mon = [];
+            let Tus = [];
+            let Wes = [];
+            let Thu = [];
+            let Fri = [];
+            let Sat = [];
+            let Sun = [];
+            for (var x = 0; x < obj.length; x++) {
+                if (obj[x].fweek == '一') {
+                    Mon.push(obj[x]);
+                } else if (obj[x].fweek == '二') {
+                    Tus.push(obj[x]);
+                } else if (obj[x].fweek == '三') {
+                    Wes.push(obj[x]);
+                } else if (obj[x].fweek == '四') {
+                    Thu.push(obj[x]);
+                } else if (obj[x].fweek == '五') {
+                    Fri.push(obj[x]);
+                } else if (obj[x].fweek == '六') {
+                    Sat.push(obj[x]);
+                } else if (obj[x].fweek == '日') {
+                    Sun.push(obj[x]);
+                }
+            }
+
+            if (Mon.length > 1) {
+                for (var y = 0; y < Mon.length - 1; y++) {
+                    for (var z = 1; z < Mon.length; z++) {
+                        let str = Mon[y].fClasstime.split("~");
+                        let strs = Mon[z].fClasstime.split("~");
+                        if (strs[0] < str[0]) {
+                            let temp = Mon[y];
+                            Mon[y] = Mon[z];
+                            Mon[z] = temp;
+                        }
+                    }
+                }
+            }
+            if (Tus.length > 1) {
+                for (var y = 0; y < Tus.length - 1; y++) {
+                    for (var z = 1; z < Tus.length; z++) {
+                        let str = Tus[y].fClasstime.split("~");
+                        let strs = Tus[z].fClasstime.split("~");
+                        if (strs[0] < str[0]) {
+                            let temp = Tus[y];
+                            Tus[y] = Tus[z];
+                            Tus[z] = temp;
+                        }
+                    }
+                }
+            }
+            if (Wes.length > 1) {
+                for (var y = 0; y < Wes.length - 1; y++) {
+                    for (var z = 1; z < Wes.length; z++) {
+                        let str = Wes[y].fClasstime.split("~");
+                        let strs = Wes[z].fClasstime.split("~");
+                        if (strs[0] < str[0]) {
+                            let temp = Wes[y];
+                            Wes[y] = Wes[z];
+                            Wes[z] = temp;
+                        }
+                    }
+                }
+            }
+            if (Thu.length > 1) {
+                for (var y = 0; y < Thu.length - 1; y++) {
+                    for (var z = 1; z < Thu.length; z++) {
+                        let str = Thu[y].fClasstime.split("~");
+                        let strs = Thu[z].fClasstime.split("~");
+                        if (strs[0] < str[0]) {
+                            let temp = Thu[y];
+                            Thu[y] = Thu[z];
+                            Thu[z] = temp;
+                        }
+                    }
+                }
+            }
+            if (Fri.length > 1) {
+                for (var y = 0; y < Fri.length - 1; y++) {
+                    for (var z = 1; z < Fri.length; z++) {
+                        let str = Fri[y].fClasstime.split("~");
+                        let strs = Fri[z].fClasstime.split("~");
+                        if (strs[0] < str[0]) {
+                            let temp = Fri[y];
+                            Fri[y] = Fri[z];
+                            Fri[z] = temp;
+                        }
+                    }
+                }
+            }
+            if (Sat.length > 1) {
+                for (var y = 0; y < Sat.length - 1; y++) {
+                    for (var z = 1; z < Sat.length; z++) {
+                        let str = Sat[y].fClasstime.split("~");
+                        let strs = Sat[z].fClasstime.split("~");
+                        if (strs[0] < str[0]) {
+                            let temp = Sat[y];
+                            Sat[y] = Sat[z];
+                            Sat[z] = temp;
+                        }
+                    }
+                }
+            }
+            if (Sun.length > 1) {
+                for (var y = 0; y < Sun.length - 1; y++) {
+                    for (var z = 1; z < Sun.length; z++) {
+                        let str = Sun[y].fClasstime.split("~");
+                        let strs = Sun[z].fClasstime.split("~");
+                        if (strs[0] < str[0]) {
+                            let temp = Sun[y];
+                            Sun[y] = Sun[z];
+                            Sun[z] = temp;
+                        }
+                    }
+                }
+            }
+
+
+            self.setState({
+                obj: obj,
+                Mon: Mon,
+                Tus: Tus,
+                Wes: Wes,
+                Thu: Thu,
+                Fri: Fri,
+                Sat: Sat,
+                Sun: Sun,
+            });
+           
+        //   this.setState({
+        //     data: res.courselist
+        //   })
+        })
+      }
     _fetchData() {
         var self = this;
         Util.get('http://192.168.43.60:5002/api/courselist', function (data) {

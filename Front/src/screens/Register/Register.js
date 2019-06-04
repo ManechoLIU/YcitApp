@@ -47,14 +47,14 @@ export default class Register extends React.Component {
                   value={this.state.password}
                 ></TextInput>
               </View>
-              <View style={styles.contentItem}>
+              {/* <View style={styles.contentItem}>
                 <TextInput style={styles.title}
                   onChangeText={(text) => this.setState({ repeatpwd: text })}
-                  placeholder='请输入密码'
+                  placeholder='请确认密码'
                   secureTextEntry={true}
                   value={this.state.repeatpwd}
                 ></TextInput>
-              </View>
+              </View> */}
               <View style={styles.contentItem}>
                 <View style={styles.phone}>
                   <TextInput style={styles.title}
@@ -80,12 +80,12 @@ export default class Register extends React.Component {
                 ></TextInput>
 
               </View>
-              <View style={styles.contentItem}>
+              {/* <View style={styles.contentItem}>
                 <TextInput style={styles.title}
                   placeholder='邀请码（可选填）'
                   onChangeText={(text) => this.setState({ code: text })}
                 ></TextInput>
-              </View>
+              </View> */}
 
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                 <ImageBackground source={require('../../assets/zc-bt.png')} style={styles.button}>

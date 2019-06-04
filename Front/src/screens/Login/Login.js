@@ -32,17 +32,13 @@ export default class Login extends React.Component {
     })
       .then((response) => response.json())
       .then((res) => {
-        console.log(res)
-        console.log(res.data)
-        console.log(res.data.gradelist)
+    
         if (res.status === 2) {
           if (res.data.sno == this.state.sno && res.data.pwd == this.state.pwd) {
-            console.log(res.data.sno)
-
             AsyncStorage.setItem('id', res.data._id)
             global.id = res.data._id,
               global.headImg = res.data.headImg,
-              global.gradelist = res.data.gradelist,
+              // global.gradelist = res.data.gradelist,
               
             storage.save({
               key: 'userlist',
@@ -58,6 +54,7 @@ export default class Login extends React.Component {
                 classes: res.data.classes,
                 phone: res.data.phone,
                 email: res.data.email,
+                courselist:res.data.courselist,
                 gradelist: res.data.gradelist
               }
 

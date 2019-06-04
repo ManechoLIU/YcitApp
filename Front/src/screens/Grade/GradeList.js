@@ -14,31 +14,6 @@ export default class GradeList extends React.Component {
       gradeList: [],
     }
   }
-  // componentDidMount() {
-  //   var that = this
-  //   that.GetUserList(id)
-  // }
-  // async GetUserList(id) {
-  //   var that = this
-  //   util.get(`http://192.168.43.60:5002/api/userlist/${id}`, function (data) {
-  //     console.log(data.data)
-  //     console.log(data.data.gradelist)
-  //     if (data) {
-  //       that.setState({
-  //         gradelist: data.data.gradelist,
-  //       })
-  //     } else {
-  //       alert('获取用户列表失败！');
-  //       console.log("shibai")
-  //     }
-
-  //   }, function (err) {
-  //     alert(err);
-  //     console.log(err)
-  //     alert('服务异常,正在紧急修复,请耐心等待');
-  //   })
-
-  // }
   componentDidMount() {
     var that = this
     // that.GetArticleList()
@@ -54,27 +29,27 @@ export default class GradeList extends React.Component {
       })
     })
   }
-  async GetArticleList() {
-    var that = this
-    util.get('http://192.168.43.60:5002/api/gradelist', function (data) {
-      console.log(data)
-      if (data) {
-        console.log(data)
-        that.setState({
-          gradeList: data
-        })
-      } else {
-        alert('获取成绩列表失败！');
-        console.log("shibai")
-      }
+  // async GetArticleList() {
+  //   var that = this
+  //   util.get('http://192.168.43.60:5002/api/gradelist', function (data) {
+  //     console.log(data)
+  //     if (data) {
+  //       console.log(data)
+  //       that.setState({
+  //         gradeList: data
+  //       })
+  //     } else {
+  //       alert('获取成绩列表失败！');
+  //       console.log("shibai")
+  //     }
 
-    }, function (err) {
-      alert(err);
-      console.log(err)
-      alert('服务异常,正在紧急修复,请耐心等待');
-    })
+  //   }, function (err) {
+  //     alert(err);
+  //     console.log(err)
+  //     alert('服务异常,正在紧急修复,请耐心等待');
+  //   })
 
-  }
+  // }
 
 
   _onTopRefresh = () => {
