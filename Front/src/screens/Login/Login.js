@@ -13,7 +13,7 @@ export default class Login extends React.Component {
     this.state = {
       sno: '',
       pwd: '',
-      _id:'',
+      _id: '',
       wechatIconVisible: true,
     }
   }
@@ -51,8 +51,9 @@ export default class Login extends React.Component {
             //   })
             // })
             AsyncStorage.setItem('id', res.data._id)
-            global.id = res.data._id
-            console.log("==="+id)
+            global.id = res.data._id,
+            global.headImg = res.data.headImg,
+            console.log("===" + id)
             // AsyncStorage.getItem('_id', (err, res) => {
             //   _id = res
             // })

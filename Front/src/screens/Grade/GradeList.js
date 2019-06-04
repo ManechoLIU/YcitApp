@@ -96,7 +96,7 @@ render() {
           <TouchableOpacity onPress={() => {
             this.props.navigation.navigate('Account')
           }}>
-            <Image style={styles.headerImage} source={require('../../assets/wd-tx.png')} />
+            <Image style={styles.headerImage} source={{uri:headImg}} />
           </TouchableOpacity>
         </View>
 
@@ -312,7 +312,8 @@ const styles = StyleSheet.create({
   headerImage: {
     marginLeft: 5,
     width: 40,
-    height: 40
+    height: 40,
+    borderRadius: API.reset(35)
   }
 
 })
