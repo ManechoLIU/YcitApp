@@ -30,16 +30,16 @@ export default class AddNote extends Component {
             content: '',
             img: '',
             testImage: '',
-            imgIcon:require('../../../assets/bj-tj.png')
-            
+            imgIcon: require('../../../assets/bj-tj.png')
+
         }
     }
     _setImage(testImage) {
         this.setState({
             testImage: testImage
         })
-        console.log("testImage:"+testImage)
-        console.warn(testImage)   
+        console.log("testImage:" + testImage)
+        console.warn(testImage)
     }
 
     render() {
@@ -69,7 +69,7 @@ export default class AddNote extends Component {
                                 style={styles.content1}
                                 onChangeText={(text) => {
                                     this.setState({
-                                        tip: text
+                                        title: text
                                     });
                                 }}>
                                 {this.state.tip}
@@ -88,13 +88,13 @@ export default class AddNote extends Component {
                                     });
                                 }}
                             >{this.state.content}</TextInput>
-                            <Image source={{uri:this.state.testImage}} style={styles.testImage}/>
+                            <Image source={{ uri: this.state.testImage }} style={styles.testImage} />
                         </View>
-                        <Photo _setImage = {this._setImage.bind(this)}/>
+                        <Photo _setImage={this._setImage.bind(this)} />
                         <View style={styles.btn}>
                             <Text style={styles.btnText} onPress={() => {
-                                // this._fetchData(this.state.title, this.state.tip, this.state.content, this.state.img);
-                                this.props.navigation.goBack()
+                                this._fetchData();
+                                // this.props.navigation.goBack()
                             }}>确定</Text>
                         </View>
                     </View>
@@ -102,27 +102,29 @@ export default class AddNote extends Component {
             </View>
         );
     }
-    // _fetchData(title, tip, content, img) {
-    //     var self = this;
-    //     url = 'http://localhost:8081/json/NewNoteData.json&Title=' + title + '&Tip=' + tip + '&Content=' + content + '&img=' + img;
-    //     Util.get(url, function (data) {
-    //         if (data.status) {
-    //             let obj = data.info;
-    //             self.setState({
-    //                 obj: obj,
-    //             });
-
-    //             self.props.navigation.state.params.onCallBack(self.state.obj);
-    //         } else {
-    //             alert('服务异常,正在紧急修复,请耐心等待');
-    //         }
-
-    //     }, function (err) {
-    //         alert(err);
-    //         alert('服务异常,正在紧急修复,请耐心等待10');
-    //     });
-
-    // } 
+    async _fetchData() {
+        fetch('http://192.168.43.60:5002/api/notelist/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title:this.state.title,
+                content:this.state.content,
+                testImage:this.state.testImage
+            })
+        })
+            .then((res) => {
+                console.log(res)
+                // alert(res.status)
+                if (res.status === 200) {
+                    this.props.navigation.navigate('Success')
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 }
 const styles = StyleSheet.create({
     container: {
@@ -215,11 +217,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
 
     },
-    testImage:{
-        marginTop:15,
-        marginLeft: width * 0.05-8,
-        width:150,
-        height:150
+    testImage: {
+        marginTop: 15,
+        marginLeft: width * 0.05 - 8,
+        width: 150,
+        height: 150
     },
     btn: {
         marginTop: 10,

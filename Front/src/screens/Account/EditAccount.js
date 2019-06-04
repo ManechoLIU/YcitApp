@@ -107,56 +107,8 @@ export default class EditAccount extends React.Component {
         console.log(error)
       })
   }
-  async SaveInfo() {
-    let formData = new FormData()
-    // formData.append('id', '5cde60c3a450c928f8718a0f')
-
-    formData.append('username', this.state.username)
-    formData.append('name', this.state.name === null ? '' : this.state.name)
-    formData.append('sno', this.state.sno === null ? '' : this.state.sno)
-    formData.append('major', this.state.major === null ? '' : this.state.major)
-    formData.append('sex', this.state.sex === 0?'女':'男')
-    // formData.append('headImg', this.state.headImg === null ? '' : this.state.headImg)
-    // formData.append('birthday', this.state.birthday === null ? '' : this.state.birthday)
-    formData.append('major', this.state.major === null ? '' : this.state.major)
-    formData.append('classes', this.state.classes)
-    formData.append('phone', this.state.phone)
-    formData.append('email', this.state.email === null ? '' : this.state.email)
-    // var opts = {
-    //   method: "POST",
-    //   body: formData
-    // }
-    // fetch('http://192.168.43.60:5002/api/userlist/edit', opts).
-    // then((response) => {
-    //   return response.text();
-    // })
-    //   .then((responseText) => {
-    //     alert(responseText);
-    //     console.log(responseText)
-    //   })
-    //   .catch((error) => {
-    //     alert(error)
-    //   })
-    try {
-      let response = await API._fetch(API.post({ url: 'edit', formData }))
-      let responseJson = await response.json()
-
-      if (responseJson.status) {
-        console.log(responseJson)
-        this.props.navigation.navigate('Account')
-        API.toastLong('编辑成功')
-        alert(responseJson.status)
-      }
-      else {
-        API.toastLong(responseJson.info)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   async changeAvatar() {
-    let formData = new FormData();
     StatusBar.setBarStyle("dark-content");
     try {
       let photo = await API.imagePicker()
@@ -165,40 +117,6 @@ export default class EditAccount extends React.Component {
         headImg:photo.path
       })
       console.log(photo.path)
-      // let submitPhoto = {
-      //   uri: photo.path,
-      //   name: id + 'headImg' + new Date().getTime(),
-      //   type: 'multipart/form-data',
-      // }
-      // formData.append("file", submitPhoto);
-      // let _this = this
-
-      // fetch(address + 'Api/FileUpload/uploadImage', {
-      //   method: 'POST',
-      //   headers: {
-      //     // Accept: "application/json",
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      //   body: formData,
-      // })
-      //   .then((response) => response.text())
-      //   .then(async (responseData) => {
-      //     let path = JSON.parse(responseData).data.path
-
-      //     _this.setState({
-      //       headImg: {uri: JSON.parse(responseData).data.path},
-      //     })
-      //     DeviceEventEmitter.emit('newInfo', {
-      //       headImg: JSON.parse(responseData).data.path,
-      //       nickname: this.state.username
-      //     })
-      //     this.SaveInfo()
-      //     API.toastLong('上传成功')
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //     API.toastLong(error)
-      //   });
     } catch (error) {
       console.log(error)
     }

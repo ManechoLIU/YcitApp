@@ -7,6 +7,7 @@ var newslist = require('./routes/api/newslist');
 var courselist = require('./routes/api/courselist');
 var gradelist = require('./routes/api/gradelist');
 var userlist = require('./routes/api/userlist');
+var notelist=require('./routes/api/notelist');
 //db 配置
 var db = require('./config/db.js').mongoUrl;
 
@@ -35,6 +36,7 @@ app.use('/api/newslist', newslist);
 app.use('/api/courselist', courselist);
 app.use('/api/gradelist', gradelist);
 app.use('/api/userlist', userlist);
+app.use('/api/notelist', notelist);
 const port = process.env.PORT || 5002;
 
 app.listen(port, () => {
